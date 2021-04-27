@@ -1,13 +1,13 @@
 # Repository Information
 
 ## Team Number
-Team NNN
+Team 081
 
 ## Team Members
 1. first name, LAST NAME
 2. first name, LAST NAME
 3. first name, LAST NAME
-4. first name, LAST NAME
+4. Vedesh, Appadoo
 
 ## Description
 This repository contains the team coding work for 21-S1 in ENG1003.
