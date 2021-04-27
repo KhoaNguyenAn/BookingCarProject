@@ -1,16 +1,17 @@
 # Repository Information
 
 ## Team Number
-Team 081
+Team 081 - ENG 1003
 
 ## Team Members
-1. first name, LAST NAME
-2. first name, LAST NAME
-3. first name, LAST NAME
+1. Ryan, SHAW
+2. Khoa, Nguyen An
+3. Karl, de Hoedt
 4. Vedesh, Appadoo
 
+
 ## Description
-This repository contains the team coding work for 21-S1 in ENG1003.
+This repository contains the team coding work for 21-S1 in ENG1003
 
 ## Instructions for submitting Assignment Two to Moodle.
 1. You must have an up to date copy in Git before submission time
