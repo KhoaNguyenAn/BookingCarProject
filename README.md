@@ -5,7 +5,7 @@ Team 081
 
 ## Team Members
 1. Ryan, SHAW
-2. first name, LAST NAME
+2. Khoa, Nguyen An
 3. first name, LAST NAME
 4. Vedesh, Appadoo
 
