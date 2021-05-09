@@ -29,21 +29,23 @@
                 <h4>Make bookings</h4>
                 <div class="mdl-grid">
                   <div class="mdl-cell mdl-cell--4-col">
-                    <form action="#">
-                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="addDest">
-                        <label class="mdl-textfield__label" for="addDest">Add destination</label>
+                      <h6><b>Date: </b><span id="bookingDate"></span> </h6>
+                      <h6><b>Pickup point:  </b><span id="pickup"></span> </h6>
+                      <h6><b>Final destination:  </b><span id="finalDest"></span> </h6>
+                      <h6><b>Number of stops:  </b><span id="numStops"></span> </h6>
+                      <h6><b>Total distance (km): </b><span id="totalDist"></span> </h6>
+                      <h6><b>Fare ($): </b><span id="fare"></span> </h6>
+                      <h6><b>Vehicle type: </b><span id="vehicleType"></span> </h6>
+                      <div class="mdl-cell mdl-cell--2-col"> 
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                            Delete booking
+                          </button>
                       </div>
-                    </form>
-                    <label for="selectTaxi">Select a taxi type</label>
-
-                    <select name="selectTaxi" id="taxiType">
-                      <option value=""></option>
-                      <option value="sedan">Sedan</option>
-                      <option value="suv">SUV</option>
-                      <option value="van">Van</option>
-                      <option value="minibus">Minibus</option>
-                    </select>
+                      <div class="mdl-cell mdl-cell--2-col"> 
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                            CHANGE
+                          </button>
+                      </div>
                   </div>
                   <div class="mdl-cell mdl-cell--4-col">
                     <h6>Map </h6>

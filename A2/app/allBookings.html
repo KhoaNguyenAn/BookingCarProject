@@ -29,24 +29,38 @@
                 <h4>Make bookings</h4>
                 <div class="mdl-grid">
                   <div class="mdl-cell mdl-cell--4-col">
-                    <form action="#">
-                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="addDest">
-                        <label class="mdl-textfield__label" for="addDest">Add destination</label>
-                      </div>
-                    </form>
-                    <label for="selectTaxi">Select a taxi type</label>
-
-                    <select name="selectTaxi" id="taxiType">
-                      <option value=""></option>
-                      <option value="sedan">Sedan</option>
-                      <option value="suv">SUV</option>
-                      <option value="van">Van</option>
-                      <option value="minibus">Minibus</option>
-                    </select>
+                    <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+                        <thead>
+                          <tr>
+                            <thead>Scheduled bookings</thead>
+                            <th class="mdl-data-table__cell--non-numeric">Date</th>
+                            <th>Pick-up</th>
+                            <th>final Destination</th>
+                            <th>Number of stops</th>
+                            <th>Distance (km)</th>
+                            <th>fare ($)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                          
+                        </tbody>
+                      </table>
                   </div>
                   <div class="mdl-cell mdl-cell--4-col">
-                    <h6>Map </h6>
+                    <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+                        <thead>
+                          <tr>
+                            <thead>Past bookings</thead>
+                            <th class="mdl-data-table__cell--non-numeric">Date</th>
+                            <th>Pick-up</th>
+                            <th>final Destination</th>
+                            <th>Number of stops</th>
+                            <th>Distance (km)</th>
+                            <th>fare ($)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
                   </div>
                
                 </div>
