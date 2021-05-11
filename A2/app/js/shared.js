@@ -61,7 +61,7 @@ class trip {
         return this._time;
     }
     addRoute(route) {
-        if(route.start == this._end) {
+        if (route.start == this._end) {
             this._stops.push(route.start);
             this._end = route.end;
             this._distance += route.getDistance();
