@@ -17,7 +17,7 @@ class route {
         let R = 6371e3; // metres
         let φ1 = lat1 * Math.PI / 180; // φ, λ in radians
         let φ2 = lat2 * Math.PI / 180;
-        let Δφ = (lat2 - lat1) * Math.PI / 180;
+        let Δφ = (lat2 - lat1) * Math.PI / 180; // difference between φ, λ
         let Δλ = (lon2 - lon1) * Math.PI / 180;
 
         let a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
