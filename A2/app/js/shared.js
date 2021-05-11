@@ -81,7 +81,7 @@ class trip {
 }
 function checkIfDataExistsLocalStorage() {
     if (typeof (Storage) !== "undefined") {
-        let data = localStorage.getItem(APP_DATA_KEY);
+        let data = localStorage.getItem(BOOKING_DATA_KEY);
         console.log(data)
         if (data !== undefined) {
             return true
@@ -91,12 +91,12 @@ function checkIfDataExistsLocalStorage() {
         }
     }
 }
-function updateLocalStorage(key, data) {
+function updateLocalStorage(data) {
     data = JSON.stringify(data);
-    localStorage.setItem(key, data);
+    localStorage.setItem(BOOKING_DATA_KEY, data);
 }
-function getDataLocalStorage(key) {
-    let data = localStorage.getItem(key);
+function getDataLocalStorage() {
+    let data = localStorage.getItem(BOOKING_DATA_KEY);
     data = JSON.parse(data);
     return data
 }
