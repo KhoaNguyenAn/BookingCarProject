@@ -79,3 +79,24 @@ class trip {
         this._time = data._time;
     }
 }
+function checkIfDataExistsLocalStorage() {
+    if (typeof (Storage) !== "undefined") {
+        let data = localStorage.getItem(APP_DATA_KEY);
+        console.log(data)
+        if (data !== undefined) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+}
+function updateLocalStorage(key, data) {
+    data = JSON.stringify(data);
+    localStorage.setItem(key, data);
+}
+function getDataLocalStorage(key) {
+    let data = localStorage.getItem(key);
+    data = JSON.parse(data);
+    return data
+}
