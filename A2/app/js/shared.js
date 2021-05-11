@@ -33,3 +33,49 @@ class route {
         this._end = data._end;
     }
 }
+class trip {
+    constructor(route, time, taxi) {
+        this._start = route.start;
+        this._stops = [];
+        this._end = route.end;
+        this._distance = route.getDistance();
+        this._taxi = taxi;
+        this._time = time;
+    }
+    get start() {
+        return this._start;
+    }
+    get stops() {
+        return this._stops;
+    }
+    get end() {
+        return this._end;
+    }
+    get distance() {
+        return this._distance;
+    }
+    get taxi() {
+        return this._taxi;
+    }
+    get time() {
+        return this._time;
+    }
+    addRoute(route) {
+        if(route.start == this._end) {
+            this._stops.push(route.start);
+            this._end = route.end;
+            this._distance += route.getDistance();
+        }
+    }
+    changeTaxi(taxi) {
+        this._taxi = taxi
+    }
+    getData(data) {
+        this._start = data._start;
+        this._stops = data._stops;
+        this._end = data._end;
+        this._distance = data._distance;
+        this._taxi = data._taxi;
+        this._time = data._time;
+    }
+}
