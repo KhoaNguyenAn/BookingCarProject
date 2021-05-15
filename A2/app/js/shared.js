@@ -2,23 +2,28 @@
 // keys for local storage
 const BOOKING_DATA_KEY = "bookingData";
 // route class
-class route {
-    constructor(start, end) {
-        this._start = start;
-        this._end = end;
+class route 
+{
+    constructor(start, end) 
+    {
+        this._start = {latitude: start.latitude , longitude: start.longitude};
+        this._end =   {latitude: end.latitude   , longitude: end.longitude};
     }
-    get start() {
+    get start() 
+    {
         return this._start;
     }
-    get end() {
+    get end() 
+    {
         return this._end;
     }
-    getDistance() {
+    getDistance() 
+    {
         let R = 6371e3; // metres
-        let φ1 = lat1 * Math.PI / 180; // φ, λ in radians
-        let φ2 = lat2 * Math.PI / 180;
-        let Δφ = (lat2 - lat1) * Math.PI / 180; // difference between φ, λ
-        let Δλ = (lon2 - lon1) * Math.PI / 180;
+        let φ1 = this._start.latitude * Math.PI / 180; // φ, λ in radians
+        let φ2 = this._end.latitude * Math.PI / 180;
+        let Δφ = (this._end.latitude - this._start.latitude) * Math.PI / 180; // difference between φ, λ
+        let Δλ = (this._end.longitude - this._start.longitude) * Math.PI / 180;
 
         let a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
             Math.cos(φ1) * Math.cos(φ2) *
@@ -28,13 +33,16 @@ class route {
         let d = R * c; // in metres
         return d;
     }
-    fromData(data) {
+    fromData(data) 
+    {
         this._start = data._start;
         this._end = data._end;
     }
 }
-class trip {
-    constructor(route, time, taxi) {
+class trip 
+{
+    constructor(route, time, taxi) 
+    {
         this._start = route.start;
         this._stops = [];
         this._end = route.end;
@@ -42,35 +50,45 @@ class trip {
         this._taxi = taxi;
         this._time = time;
     }
-    get start() {
+    get start() 
+    {
         return this._start;
     }
-    get stops() {
+    get stops() 
+    {
         return this._stops;
     }
-    get end() {
+    get end() 
+    {
         return this._end;
     }
-    get distance() {
+    get distance() 
+    {
         return this._distance;
     }
-    get taxi() {
+    get taxi() 
+    {
         return this._taxi;
     }
-    get time() {
+    get time() 
+    {
         return this._time;
     }
-    addRoute(route) {
-        if (route.start == this._end) {
+    addRoute(route) 
+    {
+        if (route.start == this._end) 
+        {
             this._stops.push(route.start);
             this._end = route.end;
             this._distance += route.getDistance();
         }
     }
-    changeTaxi(taxi) {
+    changeTaxi(taxi) 
+    {
         this._taxi = taxi
     }
-    getData(data) {
+    getData(data) 
+    {
         this._start = data._start;
         this._stops = data._stops;
         this._end = data._end;
@@ -79,24 +97,30 @@ class trip {
         this._time = data._time;
     }
 }
-function checkIfDataExistsLocalStorage() {
-    if (typeof (Storage) !== "undefined") {
+function checkIfDataExistsLocalStorage() 
+{
+    if (typeof (Storage) !== "undefined") 
+    {
         let data = localStorage.getItem(BOOKING_DATA_KEY);
         console.log(data)
-        if (data !== undefined) {
-            return true
+        if (data !== undefined) 
+        {
+            return true;
         }
-        else {
-            return false
+        else 
+        {
+            return false;
         }
     }
 }
-function updateLocalStorage(data) {
+function updateLocalStorage(data) 
+{
     data = JSON.stringify(data);
     localStorage.setItem(BOOKING_DATA_KEY, data);
 }
-function getDataLocalStorage() {
+function getDataLocalStorage() 
+{
     let data = localStorage.getItem(BOOKING_DATA_KEY);
     data = JSON.parse(data);
-    return data
+    return data;
 }
