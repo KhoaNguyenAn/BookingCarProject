@@ -67,6 +67,9 @@ class trip
     {
         this._taxi = taxi
     }
+    removeDestination(Index) {
+        this._queue[Index].splice(Index, 1);
+    }
     getData(data) 
     {
         this._start = data._start;
@@ -130,16 +133,17 @@ function getData (key)
         return data;
     }
 }
-function markDone(index, queueIndex) 
+
+function markDone(index) 
 {
-    if (window.confirm("Do you want to mark this student as done ?") === true) 
+    if (window.confirm("Do you want to delete the destination ?") === true) 
     {
         let Newtrip = new trip();
-        let data = getData(APP_DATA_KEY);
+        let data = getData(bookingData);
         Newtrip.fromData(data);
-        consultSession.removeStudent(index, queueIndex);
-        updateStorage(APP_DATA_KEY, consultSession);
-        displayCurrent(consultSession.queue);
+        Newtrip.removeDestination(index);
+        updateStorage(APP_DATA_KEY, Newtrip);
+        displayCurrent(Newtrip._queue);
     }
 }
 
@@ -149,13 +153,12 @@ function displayCurrent(data)
     for (let i = 0; i < data.length; i++) 
     {
         output += `<ul class="mdl-list">
-                    <h4>Queue ${i + 1}</h4> `;
+                     `;
         for (let j = 0; j < data[i].length; j++) 
         {
             output +=
                 `<li class="mdl-list__item mdl-list__item--three-line">
             <span class="mdl-list__item-primary-content">
-                <i class="material-icons mdl-list__item-avatar">person</i>
                 <span>${data[i][j]._fullname}</span>
             </span>
             <span class="mdl-list__item-secondary-content">
@@ -172,4 +175,3 @@ function displayCurrent(data)
     }
     document.getElementById("queueContent").innerHTML = output;
 }
-
