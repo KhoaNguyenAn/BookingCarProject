@@ -1,20 +1,47 @@
 "use strict"
 
-//Changes
-// Basic Taxi (Sedan) Fare Scheme
+const SUVFARE = 3.50;
+const VANFARE = 6.00;
+const MINIBUSFARE = 10.00;
+const DISTANCEFARE = 1.622;
+const FLAGRATE = 4.20;
+const COMMERCIALLEVY = 1.10;
+let tempCost;
+let distanceCost;
+let finalCost;
+let distanceTravelled = document.getElementById("totalDist");
+let vehicleSelected = document.getElementById("taxiType");
+let timeSelected = document.getElementById("appt");
 
-// Flag rate: AUD$4.20
+//Distance fare
+distanceCost = distanceTravelled * DISTANCEFARE;
 
-// Distance based fare rate: AUD$1.622/km
+//Check vehicle type
+if (vehicleSelected == "sedan") {
+    tempCost = COMMERCIALLEVY + distanceCost;
+}
+else if (vehicleSelected == "suv") {
+    tempCost = COMMERCIALLEVY + distanceCost + SUVFARE;
+}
+else if (vehicleSelected == "van") {
+    tempCost = COMMERCIALLEVY + distanceCost + VANFARE;
+}
+else{
+    tempCost = COMMERCIALLEVY + distanceCost + MINIBUSFARE;
+}
 
 // Night levy: 20% surcharge between 5pm and 9am
+if (timeSelected >= "17:00" || timeSelected<="09:00" ) {
+    finalCost = tempCost *1.2;
+}
+else{
+    finalCost = tempCost;
+}
 
-// Commercial Passenger Vehicle Levy: AUD$1.10 per trip (applies to all trips)
 
-// Additional levy for larger vehicles
 
-// SUV: AUD$3.50
 
-// Van: AUD$6.00
 
-// Minibus: AUD$10.00
+
+
+

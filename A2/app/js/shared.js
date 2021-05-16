@@ -20,14 +20,14 @@ class route
     getDistance() 
     {
         let R = 6371e3; // metres
-        let φ1 = this._start.latitude * Math.PI / 180; // φ, λ in radians
-        let φ2 = this._end.latitude * Math.PI / 180;
-        let Δφ = (this._end.latitude - this._start.latitude) * Math.PI / 180; // difference between φ, λ
-        let Δλ = (this._end.longitude - this._start.longitude) * Math.PI / 180;
+        let delta1= this._start.latitude * Math.PI / 180; // φ, λ in radians
+        let delta2 = this._end.latitude * Math.PI / 180;
+        let deltaDifference = (this._end.latitude - this._start.latitude) * Math.PI / 180; // difference between φ, λ
+        let lambdaDiff = (this._end.longitude - this._start.longitude) * Math.PI / 180;
 
-        let a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        let a = Math.sin(deltaDifference / 2) * Math.sin(deltaDifference / 2) +
+            Math.cos(delta1) * Math.cos(delta2) *
+            Math.sin(lambdaDiff / 2) * Math.sin(lambdaDiff / 2);
         let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         let d = R * c; // in metres
@@ -99,6 +99,8 @@ class trip
         }
     }
 }
+
+
 function checkDataLocal (key) 
 {
     if (typeof(Storage) !== "undefined") 
@@ -138,4 +140,17 @@ function getData (key)
     {
         return data;
     }
+}
+
+function updateDayTime() 
+{
+  let date= new Date();
+  let timeNowRef= document.getElementById("timeNow");
+  timeNowRef.innerText=date.toLocaleTimeString();
+}
+
+let intervalHandle="";
+window.onload = function () 
+{
+  intervalHandle= setInterval(updateDayTime,1000);
 }
