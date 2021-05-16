@@ -12,6 +12,19 @@ function getDestination()
     };
     webServiceRequest(url, data);
 }
+function getInformation(lat,lng)
+{
+    let apiKey = "59e6e73ac63645e19d599650bfda46ae";
+    let latlng = `${lat}+${lng}`;
+    let url = "https://api.opencagedata.com/geocode/v1/json";
+    let data = {
+        q: latlng,
+        key: apiKey,
+        jsonp: "add",
+        limit : "1"
+    };
+    webServiceRequest(url, data);
+}
 function add(data)
 {
     let lat = data.results[0].geometry.lat;
@@ -19,11 +32,10 @@ function add(data)
     let marker = new mapboxgl.Marker();
     marker.setLngLat([lng, lat]);
     let popup = new mapboxgl.Popup({ offset: 45 });
-    popup.setHTML(`${lat}<br>: ${lng}`);
+    popup.setHTML(`${lat}<br> ${lng} <br> ${data.results[0].formatted}`);
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    //document.getElementById("addDest").innerHTML = `${lat}&nbsp;${lng}`;
     panTo(lat, lng);
     // add route
     let newDestination = {

@@ -13,17 +13,7 @@ let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
 map.on('click', (e) => {
-    console.log(e.lngLat.lat);
-    console.log(e.lngLat.lng);
-    let marker = new mapboxgl.Marker();
-    marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
-    let popup = new mapboxgl.Popup({ offset: 45 });
-    popup.setHTML(`${e.lngLat.lat}<br>: ${e.lngLat.lng}`);
-    marker.setPopup(popup);
-    marker.addTo(map);
-    popup.addTo(map);
-    document.getElementById("addDest").innerHTML = `${e.lngLat.lat}&nbsp;${e.lngLat.lng}`;
-    panTo(e.lngLat.lat, e.lngLat.lng);
+    getInformation(e.lngLat.lat,e.lngLat.lng)
     //add route
     let newDestination = {
         latitude: e.lngLat.lat, 
@@ -73,9 +63,16 @@ function showPath() {
     });
 }
 
+function liveClock() 
+{
+    let Clock = new Date().toLocaleTimeString();
+    document.getElementById("currentTime").innerHTML = Clock;
+}
+
 // fly to my location 
 window.onload = function()
 {
+    setInterval(liveClock, 1000);
     let lastDestination = null;
     
     if (lastDestination == null)
@@ -103,4 +100,5 @@ function success(pos) {
     marker.addTo(map);
     popup.addTo(map);
     document.getElementById("currentDestination").innerHTML = `${pos.coords.latitude}&nbsp;${pos.coords.longitude}`;
+    //displayCurrent(consultSession.queue);
 }

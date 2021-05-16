@@ -130,28 +130,46 @@ function getData (key)
         return data;
     }
 }
-
-function updateDayTime() 
+function markDone(index, queueIndex) 
 {
-  let date= new Date();
-  let timeNowRef= document.getElementById("timeNow");
-  timeNowRef.innerText=date.toLocaleTimeString();
+    if (window.confirm("Do you want to mark this student as done ?") === true) 
+    {
+        let Newtrip = new trip();
+        let data = getData(APP_DATA_KEY);
+        Newtrip.fromData(data);
+        consultSession.removeStudent(index, queueIndex);
+        updateStorage(APP_DATA_KEY, consultSession);
+        displayCurrent(consultSession.queue);
+    }
 }
 
-let intervalHandle="";
-//let Newtrip = new trip();
-window.onload = function () 
+function displayCurrent(data) 
 {
-  intervalHandle= setInterval(updateDayTime,1000);
-    // if (checkDataLocal(BOOKING_DATA_KEY) == true) 
-    // {
-    //    let data = getData(BOOKING_DATA_KEY);
-    //    Newtrip.fromData(data);
-    // } 
-    // else 
-    // {
-      
-    //   updateStorage(BOOKING_DATA_KEY, Newtrip);
-    // }
+    let output = "";
+    for (let i = 0; i < data.length; i++) 
+    {
+        output += `<ul class="mdl-list">
+                    <h4>Queue ${i + 1}</h4> `;
+        for (let j = 0; j < data[i].length; j++) 
+        {
+            output +=
+                `<li class="mdl-list__item mdl-list__item--three-line">
+            <span class="mdl-list__item-primary-content">
+                <i class="material-icons mdl-list__item-avatar">person</i>
+                <span>${data[i][j]._fullname}</span>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" onclick="view(${j},${i})"><i
+                        class="material-icons">info</i></a>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" onclick="markDone(${j},${i})"><i
+                        class="material-icons">done</i></a>
+            </span>
+                 </li>`;
+        }
+        output += `</ul>`;
+    }
+    document.getElementById("queueContent").innerHTML = output;
 }
 
