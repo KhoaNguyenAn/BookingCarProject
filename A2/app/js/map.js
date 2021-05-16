@@ -22,15 +22,15 @@ map.on('click', (e) => {
     popup.addTo(map);
     document.getElementById("addDest").innerHTML = `${e.lngLat.lat}&nbsp;${e.lngLat.lng}`;
     panTo(e.lngLat.lat, e.lngLat.lng);
-    // add route
-    // let newDestination = {
-    //     latitude: e.lngLat.lat, 
-    //     longitude: e.lngLat.lng
-    // };
-    // let route = new route(lastDestination,newDestination);
-    // lastDestination = newDestination;
-    // let trip = new trip();
-    // trip.addRoute(route);
+    //add route
+    let newDestination = {
+        latitude: e.lngLat.lat, 
+        longitude: e.lngLat.lng
+    };
+    let Newroute = new route(lastDestination,newDestination);
+    lastDestination = newDestination;
+    let Newtrip = new trip();
+    Newtrip.addRoute(Newroute);
 })
 function showPath() {
     let object = {

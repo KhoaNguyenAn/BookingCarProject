@@ -42,18 +42,6 @@ class trip
         this._taxi = taxi;
         this._time = time;
     }
-    get start() 
-    {
-        return this._start;
-    }
-    get stops() 
-    {
-        return this._stops;
-    }
-    get end() 
-    {
-        return this._end;
-    }
     get distance() 
     {
         return this._distance;
