@@ -6,22 +6,7 @@ let map = new mapboxgl.Map({
     zoom: 16,
     style: 'mapbox://styles/mapbox/streets-v9'
 });
-// TODO: complete the getData function
-function getData() {
-    // TODO: retrieve the user input for the city name from HTML
-    let cityRef = document.getElementById("city");
-    let city = cityRef.value;
-    // TODO: define the data to pass for the query string to the web service request function
-    //       You will need to pass along the token as well as the callback
-    //       See: https://aqicn.org/json-api/doc/#api-City_Feed-GetCityFeed
-    let data = {
-        token: WAQI_TOKEN,
-        callback: "showData"
-    };
-    // TODO: Make the actual web service request to the URL https://api.waqi.info/feed/:city
-    //       You need to replace the :city placeholder with the actual city name from the user input
-    webServiceRequest(`https://api.waqi.info/feed/${city}/`, data);
-}
+
 let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
@@ -35,18 +20,17 @@ map.on('click', (e) => {
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    document.getElementById("addDes").innerHTML = `${e.lngLat.lat}&nbsp;${e.lngLat.lng}`;
+    document.getElementById("addDest").innerHTML = `${e.lngLat.lat}&nbsp;${e.lngLat.lng}`;
     panTo(e.lngLat.lat, e.lngLat.lng);
-
     // add route
-    let newDestination = {
-        latitude: e.lngLat.lat, 
-        longitude: e.lngLat.lng
-    };
-    let route = new route(lastDestination,newDestination);
-    lastDestination = newDestination;
-    let trip = new trip();
-    trip.addRoute(route);
+    // let newDestination = {
+    //     latitude: e.lngLat.lat, 
+    //     longitude: e.lngLat.lng
+    // };
+    // let route = new route(lastDestination,newDestination);
+    // lastDestination = newDestination;
+    // let trip = new trip();
+    // trip.addRoute(route);
 })
 function showPath() {
     let object = {
