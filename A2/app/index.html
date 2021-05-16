@@ -9,7 +9,7 @@
   <style type="text/css">
     #map{height: calc(72vh - 56px);}
   </style>
-  
+  <script src="js/shared.js"></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet'>
 </head>
@@ -40,6 +40,7 @@
         <h4>Make bookings</h4>
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--6-col">
+            <h5>Time: <span id="timeNow"></span></h5>
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="addDest">
@@ -47,14 +48,7 @@
               </div>
             </form>
             <h6>Use the text field or pinpoint map to add destination</h6>
-            <form action="#">
-              
-              
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="deleteDest">
-                <label class="mdl-textfield__label" for="deleteDest">Delete destination</label>
-              </div>
-            </form>
+
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
               <input class="mdl-textfield__input" type="date" id="dateInput">
               <label class="mdl-textfield__label" for="dateInput">Booking Date: </label>
@@ -65,9 +59,7 @@
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="getDestination()">
               Add destination
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-              Delete destination
-            </button>
+
             <br><br>
             <label for="selectTaxi">Select a taxi type</label>
             <select name="selectTaxi" id="taxiType">
@@ -98,9 +90,7 @@
             <h6><b>Current position:  </b><span id="currentDestination"></span> </h6>
                 <div id="map" class="mapboxgl-m"></div> 
                 <br><br>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="showLocation()">
-                  Show my location
-                </button>
+          
                 <input type="button" value="Show Path" onclick="showPath()">
 
           </div>
@@ -108,7 +98,7 @@
         </div>
     </main>
   </div>
-  <script src="js/shared.js"></script>
+  
   <script src="js/services.js"></script> 
   <script src="js/map.js"></script> 
   <script src="js/GeoCoding.js"></script> 
