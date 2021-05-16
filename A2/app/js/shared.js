@@ -33,20 +33,12 @@ class route
         let d = R * c; // in metres
         return d;
     }
-    fromData(data) 
-    {
-        this._start = data._start;
-        this._end = data._end;
-    }
 }
 class trip 
 {
-    constructor(route, time, taxi) 
+    constructor(time, taxi) 
     {
-        this._start = route.start;
-        this._stops = [];
-        this._end = route.end;
-        this._distance = route.getDistance();
+        this._queue = [];
         this._taxi = taxi;
         this._time = time;
     }
@@ -76,12 +68,11 @@ class trip
     }
     addRoute(route) 
     {
-        if (route.start == this._end) 
-        {
-            this._stops.push(route.start);
-            this._end = route.end;
-            this._distance += route.getDistance();
-        }
+        let data = getData(BOOKING_DATA_KEY);
+        this.fromData(data);
+        this._queue.push(route);
+        this._distance += route.getDistance();
+        updateStorage(BOOKING_DATA_KEY, this);
     }
     changeTaxi(taxi) 
     {
@@ -96,31 +87,55 @@ class trip
         this._taxi = data._taxi;
         this._time = data._time;
     }
-}
-function checkIfDataExistsLocalStorage() 
-{
-    if (typeof (Storage) !== "undefined") 
+    fromData (trip) 
     {
-        let data = localStorage.getItem(BOOKING_DATA_KEY);
-        console.log(data)
-        if (data !== undefined) 
+        this._distance = trip._distance;
+        this._taxi = trip._taxi;
+        this._time = trip._time;
+        for (let i = 0; i < trip._queue.length; i++) 
+        {
+                let route = new route(trip._queue[i]);
+                this._queue.push(route);   
+        }
+    }
+}
+function checkDataLocal (key) 
+{
+    if (typeof(Storage) !== "undefined") 
+    { 
+        if (localStorage.getItem(key) !== null) 
         {
             return true;
-        }
+        } 
         else 
         {
             return false;
         }
+    } 
+    else 
+    { 
+	    console.log("localStorage is not supported by current browser."); 
+        return false;
+    } 
+}
+function updateStorage (key, data) 
+{
+    let JSONdata = JSON.stringify(data);
+    localStorage.setItem(key, JSONdata);
+}
+function getData (key) 
+{
+    let data = localStorage.getItem(key);
+    try 
+    {
+        data = JSON.parse(data);
+    } 
+    catch 
+    {
+    
+    } 
+    finally 
+    {
+        return data;
     }
-}
-function updateLocalStorage(data) 
-{
-    data = JSON.stringify(data);
-    localStorage.setItem(BOOKING_DATA_KEY, data);
-}
-function getDataLocalStorage() 
-{
-    let data = localStorage.getItem(BOOKING_DATA_KEY);
-    data = JSON.parse(data);
-    return data;
 }

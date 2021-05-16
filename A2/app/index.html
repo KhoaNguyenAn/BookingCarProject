@@ -12,14 +12,6 @@
   
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet'>
-
-  <style>
-    .mapbox 
-    {
-        height: 500px;
-        width: 50vw;
-    }
-    </style> 
 </head>
 
 <body>
@@ -51,7 +43,7 @@
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="addDest">
-                <label class="mdl-textfield__label" for="addDest">Add destination</label>
+                <label class="mdl-textfield__label" for="addDest" id = "addDes">Add destination</label>
               </div>
             </form>
             <h6>Use the text field or pinpoint map to add destination</h6>
@@ -103,19 +95,21 @@
           </div>
           
           <div class="mdl-cell mdl-cell--6-col">
-            <h6><b>Current destination:  </b><span id="currentDest"></span> </h6>
-                <div id="map"></div> 
+            <h6><b>Current position:  </b><span id="currentDestination"></span> </h6>
+                <div id="map" class="mapboxgl-m"></div> 
                 <br><br>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="showLocation()">
                   Show my location
                 </button>
+                <input type="button" value="Show Path" onclick="showPath()">
+
           </div>
 
         </div>
     </main>
   </div>
   <script src="js/shared.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/services.js"></script> 
   <script src="js/map.js"></script> 
 </body>
 </html>
