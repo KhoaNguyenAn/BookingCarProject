@@ -33,6 +33,7 @@ map.on('click', (e) => {
     lastDestination = newDestination;
     let Newtrip = new trip();
     Newtrip.addRoute(Newroute);
+    showPath();
 })
 function showPath() {
     let object = {

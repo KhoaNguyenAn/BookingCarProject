@@ -23,15 +23,16 @@ function add(data)
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    document.getElementById("addDest").innerHTML = `${lat}&nbsp;${lng}`;
+    //document.getElementById("addDest").innerHTML = `${lat}&nbsp;${lng}`;
     panTo(lat, lng);
     // add route
-    // let newDestination = {
-    //     latitude: lat, 
-    //     longitude: lng
-    // };
-    // let route = new route(lastDestination,newDestination);
-    // lastDestination = newDestination;
-    // let trip = new trip();
-    // trip.addRoute(route);
+    let newDestination = {
+        latitude: lat, 
+        longitude: lng
+    };
+    let Newroute = new route(lastDestination,newDestination);
+    lastDestination = newDestination;
+    let Newtrip = new trip();
+    Newtrip.addRoute(Newroute);
+    showPath();
 }
