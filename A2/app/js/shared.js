@@ -36,11 +36,12 @@ class route
 }
 class trip 
 {
-    constructor(time, taxi) 
+    constructor(time, taxi, distance) 
     {
         this._queue = [];
         this._taxi = taxi;
         this._time = time;
+        this._distance = distance;
     }
     get distance() 
     {
@@ -57,7 +58,7 @@ class trip
     addRoute(route) 
     {
         let data = getData(BOOKING_DATA_KEY);
-        this.fromData(data);
+        if (data != null) this.fromData(data);
         this._queue.push(route);
         this._distance += route.getDistance();
         updateStorage(BOOKING_DATA_KEY, this);
@@ -82,8 +83,8 @@ class trip
         this._time = trip._time;
         for (let i = 0; i < trip._queue.length; i++) 
         {
-                let route = new route(trip._queue[i]);
-                this._queue.push(route);   
+                let Newroute = new route(trip._queue[i]._start,trip._queue[i]._end);
+                this._queue.push(Newroute);   
         }
     }
 }
@@ -138,7 +139,19 @@ function updateDayTime()
 }
 
 let intervalHandle="";
+//let Newtrip = new trip();
 window.onload = function () 
 {
   intervalHandle= setInterval(updateDayTime,1000);
+    // if (checkDataLocal(BOOKING_DATA_KEY) == true) 
+    // {
+    //    let data = getData(BOOKING_DATA_KEY);
+    //    Newtrip.fromData(data);
+    // } 
+    // else 
+    // {
+      
+    //   updateStorage(BOOKING_DATA_KEY, Newtrip);
+    // }
 }
+

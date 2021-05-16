@@ -7,6 +7,8 @@ let map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/streets-v9'
 });
 
+
+
 let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
@@ -44,21 +46,27 @@ function showPath() {
             }
         }
     };
-    let trip = new trip();
+    let Newtrip = new trip();
     let data = getData(BOOKING_DATA_KEY);
-    trip.fromData(data);
-    let route = trip._queue[0];
-    object.data.geometry.coordinates.push([route._start.longitude,route._start.latitude]);
-    object.data.geometry.coordinates.push([route._end.longitude,route._end.latitude]);
-    for (let i = 1; i < trip._queue.length; i++) 
+    Newtrip.fromData(data);
+    let Newroute = Newtrip._queue[0];
+    object.data.geometry.coordinates.push([Newroute._start.longitude,Newroute._start.latitude]);
+    object.data.geometry.coordinates.push([Newroute._end.longitude,Newroute._end.latitude]);
+    for (let i = 1; i < Newtrip._queue.length; i++) 
     {
-        let route = trip._queue[i];
-        object.data.geometry.coordinates.push([route._end.longitude,route._end.latitude]);
+        let Newroute1 = Newtrip._queue[i];
+        object.data.geometry.coordinates.push([Newroute1._end.longitude,Newroute1._end.latitude]);
     }
+    if (map.getLayer('routes'))
+    {
+       map.removeLayer('routes');
+       map.removeSource('data');
+    }
+    map.addSource('data', object);
     map.addLayer({
         id: "routes",
         type: "line",
-        source: object,
+        source: "data",
         layout: { "line-join": "round", "line-cap": "round" },
         paint: { "line-color": "#888", "line-width": 6 }
     });
@@ -68,8 +76,12 @@ function showPath() {
 window.onload = function()
 {
     let lastDestination = null;
+    
     if (lastDestination == null)
-     navigator.geolocation.getCurrentPosition(success);
+    {
+      localStorage.removeItem(BOOKING_DATA_KEY);
+      navigator.geolocation.getCurrentPosition(success);
+    }
 }
 function success(pos) {
     let lat = pos.coords.latitude;
