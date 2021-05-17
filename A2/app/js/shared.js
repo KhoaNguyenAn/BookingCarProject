@@ -121,13 +121,14 @@ function sortBooking()
     for (let i = 0; i < output._arrayTrip.length; i++)
     {
         outputSchedule+= "<tr>";
+        outputpast+="<tr>";
+        //         <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
         let sizeTrip = output._arrayTrip[i]._queue.length - 1;
         if (todayDate <= output._arrayTrip[i]._date) 
             {
                 outputSchedule +=
                     `
                     <td>${output._arrayTrip[i]._date}</td>
-                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue.length}</td>
                     <td>${output._arrayTrip[i]._distance}</td>
@@ -137,14 +138,14 @@ function sortBooking()
                 outputpast +=
                     `
                     <td>${output._arrayTrip[i]._date}</td>
-                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue.length}</td>
                     <td>${output._arrayTrip[i]._distance}</td>
                     <td>${output._arrayTrip[i]._fare}</td>
-                    <td>${i}</td>
                     `
             }
         outputSchedule+= "</tr>";
+        outputpast+="</tr>";
     }
     //console.log(outputSchedule);
     if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
