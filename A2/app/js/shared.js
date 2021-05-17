@@ -20,7 +20,7 @@ class route
     }
     getDistance() 
     {
-        let R = 6371e3; // metres
+        let R = 6371; // metres
         let delta1= this._start.latitude * Math.PI / 180; // φ, λ in radians
         let delta2 = this._end.latitude * Math.PI / 180;
         let deltaDifference = (this._end.latitude - this._start.latitude) * Math.PI / 180; // difference between φ, λ
@@ -180,4 +180,8 @@ function displayCurrent(data)
     }
     output += `</ul>`;
     document.getElementById("queueContent").innerHTML = output;
+}
+
+function home() {
+    window.location.href="index.html";
 }
