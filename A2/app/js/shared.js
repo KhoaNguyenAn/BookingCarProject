@@ -120,32 +120,32 @@ function sortBooking()
     let outputpast = "";
     for (let i = 0; i < output._arrayTrip.length; i++)
     {
-        outputSchedule+= "<tr>";
-        outputpast+="<tr>";
+        outputSchedule+= "";
+        outputpast+="";
         //         <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
         let sizeTrip = output._arrayTrip[i]._queue.length - 1;
         if (todayDate <= output._arrayTrip[i]._date) 
             {
                 outputSchedule +=
                     `
-                    <td>${output._arrayTrip[i]._date}</td>
-                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
-                    <td>${output._arrayTrip[i]._queue.length}</td>
-                    <td>${output._arrayTrip[i]._distance}</td>
-                    <td>${output._arrayTrip[i]._fare}</td>
+                    <h8><b>${output._arrayTrip[i]._date}</b>;
+                    ${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName};
+                    <b>${output._arrayTrip[i]._queue.length}</b>;
+                    ${output._arrayTrip[i]._distance};
+                    <b>$${output._arrayTrip[i]._fare}</b>
                 `
             } else {
                 outputpast +=
                     `
-                    <td>${output._arrayTrip[i]._date}</td>
-                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
-                    <td>${output._arrayTrip[i]._queue.length}</td>
-                    <td>${output._arrayTrip[i]._distance}</td>
-                    <td>${output._arrayTrip[i]._fare}</td>
+                    <h8><b>${output._arrayTrip[i]._date}</b>;
+                    ${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName};
+                    <b>${output._arrayTrip[i]._queue.length}</b>;
+                    ${output._arrayTrip[i]._distance};
+                    <b>$${output._arrayTrip[i]._fare}</b>
                     `
             }
-        outputSchedule+= "</tr>";
-        outputpast+="</tr>";
+        outputSchedule+= "</h8>";
+        outputpast+="</h8>";
     }
     //console.log(outputSchedule);
     if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
