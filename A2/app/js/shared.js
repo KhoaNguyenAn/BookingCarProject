@@ -113,9 +113,9 @@ class allBookings {
 function sortBooking() 
 {
     let todayDate = new Date().toLocaleDateString();
-    let output = new allBookings();
-    let data = getData(ALL_BOOKING_KEY);
-    output.fromData(data);
+    //let output = new allBookings();
+    let output = getData(ALL_BOOKING_KEY);
+    //if (data != null) output.fromData(data);
     let outputSchedule = "";
     let outputpast = "";
     for (let i = 0; i < output._arrayTrip.length; i++)
@@ -146,12 +146,9 @@ function sortBooking()
             }
         outputSchedule+= "</tr>";
     }
-    if (outputSchedule != "") {
-        document.getElementById("scheduledBooking").innerHTML = outputSchedule;
-    }
-    if (outputpast != "") {
-        document.getElementById("pastBooking").innerHTML = outputpast;
-    }
+    //console.log(outputSchedule);
+    if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
+    if (outputpast != "")document.getElementById("pastBooking").innerHTML = outputpast;
 }
 
 function checkDataLocal(key) {
@@ -226,11 +223,25 @@ function confirmTrip()
         Newtrip.fromData(data1);
         allBook.addTrip(Newtrip);
         updateStorage(ALL_BOOKING_KEY,allBook);
-        sortBooking();
         window.location.href = "view.html";
     }
     else
     {
         location.reload();
     }
+}
+
+function showView()
+{
+    let Newtrip = new trip();
+    let data = getData(BOOKING_DATA_KEY);
+    Newtrip.fromData(data);
+    let sizeTrip = Newtrip._queue.length - 1;
+    document.getElementById("bookingDate").innerHTML = `${Newtrip.date} `;
+    document.getElementById("pickup").innerHTML = `${Newtrip._queue[0]._fomarttedName}`;
+    document.getElementById("finalDest").innerHTML = `${Newtrip._queue[sizeTrip]._fomarttedName}`;
+    document.getElementById("numStops").innerHTML = `${Newtrip._queue.length}`;
+    document.getElementById("totalDist").innerHTML = `${Newtrip._distance}`;
+    document.getElementById("fare").innerHTML = `${Newtrip._fare}`;
+    document.getElementById("taxiType").innerHTML = `${Newtrip.date}`;
 }
