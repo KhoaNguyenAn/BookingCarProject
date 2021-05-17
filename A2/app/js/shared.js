@@ -165,12 +165,9 @@ function displayCurrent(data)
             <span class="mdl-list__item-primary-content">
                 <span>${data[i]._fomarttedName}</span>
             </span>
+           
             <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" onclick="view(${i})"><i
-                        class="material-icons">info</i></a>
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" onclick="markDone(${i})"><i
+                <a class="mdl-list__item-secondary-action" onclick="removeDestination(${i})"><i
                         class="material-icons">done</i></a>
             </span>
                  </li>`;
