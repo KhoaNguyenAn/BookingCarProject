@@ -42,9 +42,10 @@ function add(data)
         latitude: lat, 
         longitude: lng
     };
-    let Newroute = new route(lastDestination,newDestination);
+    let Newroute = new route(lastDestination,newDestination,data.results[0].formatted);
     lastDestination = newDestination;
     let Newtrip = new trip();
     Newtrip.addRoute(Newroute);
     showPath();
+    displayCurrent(Newtrip._queue);
 }

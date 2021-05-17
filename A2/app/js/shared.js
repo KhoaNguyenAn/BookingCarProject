@@ -4,10 +4,11 @@ const BOOKING_DATA_KEY = "bookingData";
 // route class
 class route 
 {
-    constructor(start, end) 
+    constructor(start, end, fomarttedName) 
     {
         this._start = {latitude: start.latitude , longitude: start.longitude};
         this._end =   {latitude: end.latitude   , longitude: end.longitude};
+        this._fomarttedName = fomarttedName;
     }
     get start() 
     {
@@ -67,8 +68,9 @@ class trip
     {
         this._taxi = taxi
     }
-    removeDestination(Index) {
-        this._queue[Index].splice(Index, 1);
+    removeDestination(Index) 
+    {
+        this._queue.splice(Index, 1);
     }
     getData(data) 
     {
@@ -86,7 +88,7 @@ class trip
         this._time = trip._time;
         for (let i = 0; i < trip._queue.length; i++) 
         {
-                let Newroute = new route(trip._queue[i]._start,trip._queue[i]._end);
+                let Newroute = new route(trip._queue[i]._start,trip._queue[i]._end,trip._queue[i]._fomarttedName);
                 this._queue.push(Newroute);   
         }
     }
@@ -139,10 +141,10 @@ function markDone(index)
     if (window.confirm("Do you want to delete the destination ?") === true) 
     {
         let Newtrip = new trip();
-        let data = getData(bookingData);
+        let data = getData(BOOKING_DATA_KEY);
         Newtrip.fromData(data);
         Newtrip.removeDestination(index);
-        updateStorage(APP_DATA_KEY, Newtrip);
+        updateStorage(BOOKING_DATA_KEY, Newtrip);
         displayCurrent(Newtrip._queue);
     }
 }
@@ -150,28 +152,24 @@ function markDone(index)
 function displayCurrent(data) 
 {
     let output = "";
+    output += `<ul class="mdl-list"> `;
     for (let i = 0; i < data.length; i++) 
     {
-        output += `<ul class="mdl-list">
-                     `;
-        for (let j = 0; j < data[i].length; j++) 
-        {
             output +=
                 `<li class="mdl-list__item mdl-list__item--three-line">
             <span class="mdl-list__item-primary-content">
-                <span>${data[i][j]._fullname}</span>
+                <span>${data[i]._fomarttedName}</span>
             </span>
             <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" onclick="view(${j},${i})"><i
+                <a class="mdl-list__item-secondary-action" onclick="view(${i})"><i
                         class="material-icons">info</i></a>
             </span>
             <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" onclick="markDone(${j},${i})"><i
+                <a class="mdl-list__item-secondary-action" onclick="markDone(${i})"><i
                         class="material-icons">done</i></a>
             </span>
                  </li>`;
-        }
-        output += `</ul>`;
     }
+    output += `</ul>`;
     document.getElementById("queueContent").innerHTML = output;
 }

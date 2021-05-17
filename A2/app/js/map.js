@@ -7,23 +7,11 @@ let map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/streets-v9'
 });
 
-
-
 let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
 map.on('click', (e) => {
     getInformation(e.lngLat.lat,e.lngLat.lng)
-    //add route
-    let newDestination = {
-        latitude: e.lngLat.lat, 
-        longitude: e.lngLat.lng
-    };
-    let Newroute = new route(lastDestination,newDestination);
-    lastDestination = newDestination;
-    let Newtrip = new trip();
-    Newtrip.addRoute(Newroute);
-    showPath();
 })
 function showPath() {
     let object = {
@@ -80,6 +68,14 @@ window.onload = function()
       localStorage.removeItem(BOOKING_DATA_KEY);
       navigator.geolocation.getCurrentPosition(success);
     }
+
+    let Newtrip = new trip();
+    if (checkDataLocal(BOOKING_DATA_KEY) == true) 
+    {
+        let data = getData(BOOKING_DATA_KEY);
+        Newtrip.fromData(data);
+        displayCurrent(Newtrip._queue);
+    }
 }
 function success(pos) {
     let lat = pos.coords.latitude;
@@ -88,7 +84,6 @@ function success(pos) {
         latitude: lat, 
         longitude: lng
     };
-    // updateLocalStorage()
     map.flyTo({
         center: [lng, lat]
     });
@@ -100,5 +95,4 @@ function success(pos) {
     marker.addTo(map);
     popup.addTo(map);
     document.getElementById("currentDestination").innerHTML = `${pos.coords.latitude}&nbsp;${pos.coords.longitude}`;
-    //displayCurrent(consultSession.queue);
 }
