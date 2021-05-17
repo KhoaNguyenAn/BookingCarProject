@@ -142,17 +142,11 @@ function getData (key)
     }
 }
 
-function markDone(index) 
+function deleteBooking() 
 {
-    if (window.confirm("Do you want to delete this destination ?") === true) 
+    if (window.confirm("Do you want to delete this booking ?") === true) 
     {
-        let Newtrip = new trip();
-        let data = getData(BOOKING_DATA_KEY);
-        Newtrip.fromData(data);
-        Newtrip.removeDestination(index);
-        updateStorage(BOOKING_DATA_KEY, Newtrip);
-        displayCurrent(Newtrip._queue);
-        showPath();
+        location.reload();
     }
 }
 
