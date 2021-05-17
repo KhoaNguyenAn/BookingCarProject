@@ -101,6 +101,24 @@ class trip
 }
 class allBookings
 {
+   constructor(date){
+       this.bookingDate = date;
+       this.arrayTrip =[];
+   }
+
+   fromData(allBookings){
+       this.bookingDate = allBookings;
+
+   }
+   sortBooking(bookingDate) {
+       let todayDate = new Date().toLocaleDateString();
+       
+       if (todayDate<=bookingDate) {
+           
+       } else {
+           
+       }
+   }
     
 }
 
