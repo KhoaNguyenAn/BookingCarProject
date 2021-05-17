@@ -82,6 +82,7 @@ class trip {
         this._taxi = trip._taxi;
         this._time = trip._time;
         this._date = trip._date;
+        this._fare = trip._fare;
         for (let i = 0; i < trip._queue.length; i++) {
             let Newroute = new route(trip._queue[i]._start, trip._queue[i]._end, trip._queue[i]._fomarttedName);
             this._queue.push(Newroute);
@@ -119,6 +120,7 @@ function sortBooking()
     let outputpast = "";
     for (let i = 0; i < output._arrayTrip.length; i++)
     {
+        outputSchedule+= "<tr>";
         if (todayDate <= output._arrayTrip[i]._date) 
             {
                 let sizeTrip = output._arrayTrip[i]._queue.length - 1;
@@ -128,7 +130,7 @@ function sortBooking()
                     <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue.length}</td>
-                    <td>${output._arrayTrip[i]._queue._distance}</td>
+                    <td>${output._arrayTrip[i]._distance}</td>
                     <td>${output._arrayTrip[i]._fare}</td>
                 `
             } else {
@@ -137,14 +139,15 @@ function sortBooking()
                     <td>${output._arrayTrip[i]._date}</td>
                     <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
-                    <td>${output._arrayTrip[i]._queue.length}</td>
+                    <td>${output._arrayTrip[i]._distance}</td>
                     <td>${output._arrayTrip[i]._fare}</td>
                     <td>${i}</td>
                     `
             }
-            document.getElementById("scheduledBooking").innerHTML = outputSchedule;
-            document.getElementById("pastBooking").innerHTML = outputpast;
+        outputSchedule+= "</tr>";
     }
+    if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
+    if (outputpast != "")document.getElementById("pastBooking").innerHTML = outputpast;
 }
 
 function checkDataLocal(key) {
