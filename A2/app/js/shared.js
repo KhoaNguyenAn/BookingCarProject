@@ -99,7 +99,10 @@ class trip
         }
     }
 }
-
+class allBookings
+{
+    
+}
 
 function checkDataLocal (key) 
 {
