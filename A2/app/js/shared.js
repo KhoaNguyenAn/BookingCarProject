@@ -146,8 +146,12 @@ function sortBooking()
             }
         outputSchedule+= "</tr>";
     }
-    if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
-    if (outputpast != "")document.getElementById("pastBooking").innerHTML = outputpast;
+    if (outputSchedule != "") {
+        document.getElementById("scheduledBooking").innerHTML = outputSchedule;
+    }
+    if (outputpast != "") {
+        document.getElementById("pastBooking").innerHTML = outputpast;
+    }
 }
 
 function checkDataLocal(key) {
