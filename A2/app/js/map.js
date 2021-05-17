@@ -65,7 +65,7 @@ window.onload = function()
 {
     setInterval(liveClock, 1000);
     let lastDestination = null;
-    
+    localStorage.removeItem(ALL_BOOKING_KEY);
     if (lastDestination == null)
     {
       localStorage.removeItem(BOOKING_DATA_KEY);

@@ -1,80 +1,82 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-        <link rel="stylesheet" href="css/material.grey-orange.min.css" />
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    </head>
-    <body>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <header class="mdl-layout__header">
-              <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title"><img src="img\66591687-vector-flat-taxi-logo-isolated-on-white-background-car-face-icon-silhouette-auto-logo-template-taxi-.jpg" style="width:50px;height:50px;" onclick="home()"> <strong>Pristine Cab</strong> </span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation. We hide it in small screens. -->
-              </div>
-            </header>
-            <div class="mdl-layout__drawer">
-              <span class="mdl-layout-title"></span>
-              <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="index.html">Home</a>
-                <a class="mdl-navigation__link" href="allBookings.html">All bookings</a>
-              </nav>
-            </div>
-            
-            <main class="mdl-layout__content">
-              <div class="page-content">
-                <h4>Bookings history</h4>
-                <div class="mdl-grid">
-                  <div class="mdl-cell mdl-cell--6-col">
-                    <table class="mdl-data-table mdl-js-data-table mdl-data-table">
-                        <thead>
-                          <tr>
-                            <thead>Scheduled bookings</thead>
-                            <th class="mdl-data-table__cell--non-numeric">Date</th>
-                            <th>Pick-up</th>
-                            <th>final Destination</th>
-                            <th>Number of stops</th>
-                            <th>Distance (km)</th>
-                            <th>fare ($)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric"  id = "scheduledBooking"></td>
-                          </tr> 
-                        </tbody>
-                      </table>
-                  </div>
-                  <div class="mdl-cell mdl-cell--6-col">
-                    <table class="mdl-data-table mdl-js-data-table mdl-data-table">
-                        <thead>
-                          <tr>
-                            <thead>Past bookings</thead>
-                            <th class="mdl-data-table__cell--non-numeric" >Date</th>
-                            <th>Pick-up</th>
-                            <th>final Destination</th>
-                            <th>Number of stops</th>
-                            <th>Distance (km)</th>
-                            <th>fare ($)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric" id = "pastBooking"></td>
-                          </tr>
-                        </tbody>
-                  </div>
-               
-                </div>
-            </main>
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <link rel="stylesheet" href="css/material.grey-orange.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title"><img
+            src="img\66591687-vector-flat-taxi-logo-isolated-on-white-background-car-face-icon-silhouette-auto-logo-template-taxi-.jpg"
+            style="width:50px;height:50px;" onclick="home()"> <strong>Pristine Cab</strong> </span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title"></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="index.html">Home</a>
+        <a class="mdl-navigation__link" href="allBookings.html">All bookings</a>
+      </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <h4>Bookings history</h4>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+              <thead>
+                <tr>
+                  <thead>Scheduled bookings</thead>
+                  <th class="mdl-data-table__cell--non-numeric">Date</th>
+                  <th>Pick-up</th>
+                  <th>final Destination</th>
+                  <th>Number of stops</th>
+                  <th>Distance (km)</th>
+                  <th>fare ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" id="scheduledBooking"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <script src="js/shared.js"></script>
-          <script src="js/list.js"></script>
-    </body>
+          <div class="mdl-cell mdl-cell--6-col">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+              <thead>
+                <tr>
+                  <thead>Past bookings</thead>
+                  <th class="mdl-data-table__cell--non-numeric">Date</th>
+                  <th>Pick-up</th>
+                  <th>final Destination</th>
+                  <th>Number of stops</th>
+                  <th>Distance (km)</th>
+                  <th>fare ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" id="pastBooking"></td>
+                </tr>
+              </tbody>
+          </div>
+
+        </div>
+    </main>
+  </div>
+  <script src="js/shared.js"></script>
+  <script src="js/fare.js"></script>
+</body>
+
 </html>
-
-
-

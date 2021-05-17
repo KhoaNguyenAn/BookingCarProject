@@ -43,7 +43,8 @@ function calculate()
     else{
         finalCost = tempCost;
     }
-
+    Newtrip._fare = finalCost;
+    updateStorage(BOOKING_DATA_KEY,Newtrip);
     //Display
     document.getElementById("fare").innerHTML = `<p> ${finalCost} </p>`;
     document.getElementById("vehicle").innerHTML = `<p> ${vehicleSelected} </p>`;

@@ -1,6 +1,7 @@
 "use strict"
 // keys for local storage
 const BOOKING_DATA_KEY = "bookingData";
+const ALL_BOOKING_KEY = "allbookingData";
 // route class
 class route {
     constructor(start, end, fomarttedName) {
@@ -37,6 +38,7 @@ class trip {
         this._time = time;
         this._date = date;
         this._distance = 0;
+        this._fare = 0;
     }
     get distance() {
         return this._distance;
@@ -49,6 +51,10 @@ class trip {
     }
     get date() {
         return this._date;
+    }
+    get fare()
+    {
+        return this._fare;
     }
     addRoute(route) {
         let data = getData(BOOKING_DATA_KEY);
@@ -82,55 +88,63 @@ class trip {
         }
     }
 }
+
 class allBookings {
     constructor(date) {
-        this.bookingDate = date;
-        this.arrayTrip = [];
+        this._arrayTrip = [];
     }
-
+    addTrip(trip) {
+        let data = getData(ALL_BOOKING_KEY);
+        if (data != null) this.fromData(data);
+        this._arrayTrip.push(trip);
+        updateStorage(ALL_BOOKING_KEY, this);
+        // localStorage.removeItem(BOOKING_DATA_KEY);
+    }
     fromData(allBookings) {
-        for (let i = 0; i < allBookings.length; i++) {
-            let oneBooking = new trip()
-            this._startDate = oneBooking._date;
-            this._pickup = oneBooking._start;
-            this._final = oneBooking._end;
-            this.distance = oneBooking._distance;
-            this.stops = oneBooking._stops
-
+        for (let i = 0; i < allBookings._arrayTrip.length; i++) {
+            let oneBooking = new trip();
+            let data = getData(BOOKING_DATA_KEY);
+            oneBooking.fromData(data);
+            this._arrayTrip.push(oneBooking);
         }
-
     }
-    sortBooking(bookingDate) {
-        let todayDate = new Date().toLocaleDateString();
-        let count = 0;
-        let output = "";
-        for (let i = 0; i < this.stops.length; i++) {
-            count++;
-        }
-        if (todayDate <= bookingDate) {
-            outputSchedule +=
+}
+function sortBooking() 
+{
+    let todayDate = new Date().toLocaleDateString();
+    let output = new allBookings();
+    let data = getData(ALL_BOOKING_KEY);
+    output.fromData(data);
+    let outputSchedule = "";
+    let outputpast = "";
+    for (let i = 0; i < output._arrayTrip.length; i++)
+    {
+        if (todayDate <= output._arrayTrip[i]._date) 
+            {
+                let sizeTrip = output._arrayTrip[i]._queue.length - 1;
+                outputSchedule +=
+                    `
+                    <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue.length}</td>
+                    <td>${output._arrayTrip[i]._queue._distance}</td>
+                    <td>${output._arrayTrip[i]._fare}</td>
                 `
-            <td>${this._startDate}</td>
-            <td>${this._pickup}</td>
-            <td>${this._final}</td>
-            <td>${this._stops}</td>
-            <td>${this._distance}</td>
-            <td>${count}</td>
-          `
-        } else {
-            outputpast +=
-                `
-        <td>${this._startDate}</td>
-        <td>${this._pickup}</td>
-        <td>${this._final}</td>
-        <td>${this._stops}</td>
-        <td>${this._distance}</td>
-        <td>${count}</td>`
-        }
-        document.getElementById("scheduledBooking").innerHTML = outputSchedule;
-        document.getElementById("pastBooking").innerHTML = outputpast;
+            } else {
+                outputpast +=
+                    `
+                    <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue.length}</td>
+                    <td>${output._arrayTrip[i]._fare}</td>
+                    <td>${i}</td>
+                    `
+            }
+            document.getElementById("scheduledBooking").innerHTML = outputSchedule;
+            document.getElementById("pastBooking").innerHTML = outputpast;
     }
-
 }
 
 function checkDataLocal(key) {
@@ -192,4 +206,24 @@ function displayCurrent(data) {
 
 function home() {
     window.location.href = "index.html";
+}
+function confirmTrip()
+{
+    if (window.confirm("Do you want to make this booking ?") === true) 
+    {
+        let allBook = new allBookings();
+        let data = getData(ALL_BOOKING_KEY);
+        if (data != null) allBook.fromData(data);
+        let Newtrip = new trip();
+        let data1 = getData(BOOKING_DATA_KEY);
+        Newtrip.fromData(data1);
+        allBook.addTrip(Newtrip);
+        updateStorage(ALL_BOOKING_KEY,allBook);
+        sortBooking();
+        window.location.href = "view.html";
+    }
+    else
+    {
+        location.reload();
+    }
 }
