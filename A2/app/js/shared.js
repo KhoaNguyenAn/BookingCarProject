@@ -121,9 +121,9 @@ function sortBooking()
     for (let i = 0; i < output._arrayTrip.length; i++)
     {
         outputSchedule+= "<tr>";
+        let sizeTrip = output._arrayTrip[i]._queue.length - 1;
         if (todayDate <= output._arrayTrip[i]._date) 
             {
-                let sizeTrip = output._arrayTrip[i]._queue.length - 1;
                 outputSchedule +=
                     `
                     <td>${output._arrayTrip[i]._date}</td>
