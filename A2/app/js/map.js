@@ -11,7 +11,10 @@ let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
 map.on('click', (e) => {
-    getInformation(e.lngLat.lat,e.lngLat.lng)
+    if (window.confirm("Do you want to choose this destination ?") === true) 
+    {
+    addNewDestination2(e.lngLat.lat,e.lngLat.lng);
+    }
 })
 function showPath() {
     let object = {
@@ -47,7 +50,7 @@ function showPath() {
         type: "line",
         source: "data",
         layout: { "line-join": "round", "line-cap": "round" },
-        paint: { "line-color": "#888", "line-width": 6 }
+        paint: { "line-color": "#888", "line-width": 8 }
     });
 }
 
@@ -77,6 +80,7 @@ window.onload = function()
         displayCurrent(Newtrip._queue);
     }
 }
+let FLAG = 0;
 function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
@@ -94,5 +98,6 @@ function success(pos) {
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    document.getElementById("currentDestination").innerHTML = `${pos.coords.latitude}&nbsp;${pos.coords.longitude}`;
+    getInformation(lat,lng);
+    //
 }

@@ -37,12 +37,13 @@ class route
 }
 class trip 
 {
-    constructor(time, taxi, distance) 
+    constructor(time, taxi, date) 
     {
         this._queue = [];
         this._taxi = taxi;
         this._time = time;
-        this._distance = distance;
+        this._date = date;
+        this._distance = 0;
     }
     get distance() 
     {
@@ -55,6 +56,10 @@ class trip
     get time() 
     {
         return this._time;
+    }
+    get date()
+    {
+        return this._date;
     }
     addRoute(route) 
     {
@@ -86,6 +91,7 @@ class trip
         this._distance = trip._distance;
         this._taxi = trip._taxi;
         this._time = trip._time;
+        this._date = trip._date;
         for (let i = 0; i < trip._queue.length; i++) 
         {
                 let Newroute = new route(trip._queue[i]._start,trip._queue[i]._end,trip._queue[i]._fomarttedName);
@@ -146,12 +152,17 @@ function markDone(index)
         Newtrip.removeDestination(index);
         updateStorage(BOOKING_DATA_KEY, Newtrip);
         displayCurrent(Newtrip._queue);
+        showPath();
     }
 }
 
 function displayCurrent(data) 
 {
     let output = "";
+    let Newtrip = new trip();
+    let data1 = getData(BOOKING_DATA_KEY);
+    Newtrip.fromData(data1);
+    output += `<p> Time: ${Newtrip.time} <br> Date: ${Newtrip.date} <br> Taxi type: ${Newtrip.taxi} </p> `;
     output += `<ul class="mdl-list"> `;
     for (let i = 0; i < data.length; i++) 
     {
