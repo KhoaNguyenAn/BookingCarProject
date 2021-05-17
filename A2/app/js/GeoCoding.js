@@ -61,4 +61,5 @@ function add(data)
     showPath();
     window.alert("New destination has been added !");
     displayCurrent(Newtrip._queue);
+    calculate();
 }
