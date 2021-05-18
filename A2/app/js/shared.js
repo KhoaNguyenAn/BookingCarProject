@@ -133,6 +133,7 @@ function sortBooking()
                     <b>${output._arrayTrip[i]._queue.length}</b>;
                     ${output._arrayTrip[i]._distance};
                     <b>$${output._arrayTrip[i]._fare}</b>
+                    <br>
                 `
             } else {
                 outputpast +=
@@ -142,6 +143,7 @@ function sortBooking()
                     <b>${output._arrayTrip[i]._queue.length}</b>;
                     ${output._arrayTrip[i]._distance};
                     <b>$${output._arrayTrip[i]._fare}</b>
+                    <br>
                     `
             }
         outputSchedule+= "</h8>";
