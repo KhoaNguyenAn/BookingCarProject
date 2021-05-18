@@ -103,5 +103,14 @@ function success(pos) {
 }
 function deleteLast()
 {
-    
+    let Newtrip = new trip();
+    let data = getData(BOOKING_DATA_KEY);
+    Newtrip.fromData(data);
+    Newtrip._distance-= Newtrip._queue[Newtrip._queue.length-1].getDistance();
+    Newtrip.removeDestination(Newtrip._queue.length-1);
+    lastDestination = Newtrip._queue[Newtrip._queue.length-1]._end;
+    updateStorage(BOOKING_DATA_KEY,Newtrip);
+    showPath();
+    displayCurrent(Newtrip._queue);
+    calculate();
 }

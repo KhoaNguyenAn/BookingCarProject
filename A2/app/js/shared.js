@@ -340,3 +340,31 @@ function deleteView()
         window.location.href = "index.html";
      }
 }
+
+function changeTaxi()
+{
+    let Newtrip = new trip()
+    let data = getData(BOOKING_DATA_KEY);
+    Newtrip.fromData(data);
+    let Newtaxi = document.getElementById("taxiType1").value;
+    for (let i = 0; i < taxiList.length; i++)
+      {
+          let taxiCodeOld = getData("taxicode");
+          if (taxiList[i].type == Newtaxi && (taxiList[i].available == true || taxiList[i].rego == taxiCodeOld))
+          {
+              Newtrip._taxi = Newtaxi;
+              Newtrip._taxiCode = taxiList[i].rego;
+              updateStorage(BOOKING_DATA_KEY,Newtrip);
+              updateStorage("taxicode",taxiList[i].rego);
+              taxiList[i].available = false;
+              let data1 = getData(ALL_BOOKING_KEY);
+              data1._arrayTrip[data1._arrayTrip.length-1]._taxi = Newtaxi;
+              data1._arrayTrip[data1._arrayTrip.length-1]._taxiCode = taxiList[i].rego;
+              updateStorage(ALL_BOOKING_KEY,data1);
+              window.alert("Successful change !");
+              return;
+          }
+      }
+      window.alert("there is NO available taxi for your booking, please try again! ");
+      return;
+}

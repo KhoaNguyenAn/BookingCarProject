@@ -73,6 +73,7 @@ function addNewDestination()
     let check = checkTaxi(Newtaxi);
     if (check != false) 
     {
+            updateStorage("taxicode",check);
             getInformation(lat,lng);   // DO IT AGAIN WITH THE FUNCTION ABOVE
     }
     else
