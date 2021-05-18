@@ -47,7 +47,7 @@ function calculate()
     updateStorage(BOOKING_DATA_KEY,Newtrip);
     //Display
     document.getElementById("fare").innerHTML = `<p> ${finalCost} </p>`;
-    document.getElementById("vehicle").innerHTML = `<p> ${vehicleSelected} </p>`;
+    document.getElementById("vehicle").innerHTML = `<p> ${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})</p>`;
     document.getElementById("totalDist").innerHTML = `<p> ${distanceTravelled} </p>`;
 }
 

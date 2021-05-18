@@ -57,6 +57,7 @@ function add(data)
     Newtrip._time = Newtime;
     Newtrip._date = NewDate;
     Newtrip._taxi = NewTaxi;
+    Newtrip._taxiCode = getData("taxicode");
     Newtrip.addRoute(Newroute);
     showPath();
     window.alert("New destination has been added !");

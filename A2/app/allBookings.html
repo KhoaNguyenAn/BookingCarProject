@@ -7,6 +7,41 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <!-- Website Logo -->
   <link rel="icon" href="img/favicon.png">
+
+  <style>
+    table {
+      width: 400x;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #000;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+    }
+
+    caption {
+      font-size: large;
+    }
+
+    h4 {
+      text-align: center;
+      color: rgba(32, 32, 7, 0.952);
+    }
+
+    tr:nth-child(1) {
+      background-color: #ddd;
+    }
+  </style>
 </head>
 
 <body>
@@ -31,39 +66,14 @@
     </div>
 
     <main class="mdl-layout__content">
-      <div class="page-content">
-        <h4>Bookings history</h4>
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--6-col">
-            <h3>Schedule bookings</h3>
-            <h6><b>
-              Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              final Destination &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Number of stops &nbsp;&nbsp;&nbsp;&nbsp;
-              Distance (km) &nbsp;&nbsp;&nbsp;&nbsp;
-              fare ($)</b></h6>
-              <h6  id="scheduledBooking"></h6>
-              
-          </div>
-          <div class="mdl-cell mdl-cell--6-col">
-                  <h3>Past bookings</h3>
-                  <h6><b>
-                    Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    final Destination &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Number of stops &nbsp;&nbsp;&nbsp;&nbsp;
-                    Distance (km) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    fare ($)</b></h6>
-                    <h6  id="pastBooking"></h6>
-          </div>
-          
-        </div>
+      <div class="page-content" id="scheduledBooking">
+      </div>
     </main>
   </div>
   <script src="js/shared.js"></script>
   <script src="js/fare.js"></script>
   <script>
-    // check if exist
-      sortBooking();
+    sortBooking();
   </script>
 </body>
 

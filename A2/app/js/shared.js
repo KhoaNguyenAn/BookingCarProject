@@ -35,6 +35,7 @@ class trip {
     constructor(time, taxi, date) {
         this._queue = [];
         this._taxi = taxi;
+        this._taxiCode = "";
         this._time = time;
         this._date = date;
         this._distance = 0;
@@ -56,6 +57,10 @@ class trip {
     {
         return this._fare;
     }
+    get taxiCode()
+    {
+        return this._taxiCode;
+    }
     addRoute(route) {
         let data = getData(BOOKING_DATA_KEY);
         if (data != null) this.fromData(data);
@@ -64,7 +69,7 @@ class trip {
         updateStorage(BOOKING_DATA_KEY, this);
     }
     changeTaxi(taxi) {
-        this._taxi = taxi
+        this._taxi = taxi;
     }
     removeDestination(Index) {
         this._queue.splice(Index, 1);
@@ -83,6 +88,8 @@ class trip {
         this._time = trip._time;
         this._date = trip._date;
         this._fare = trip._fare;
+        this._taxiCode = trip._taxiCode;
+        //this._taxiCode = trip._taxiCode;
         for (let i = 0; i < trip._queue.length; i++) {
             let Newroute = new route(trip._queue[i]._start, trip._queue[i]._end, trip._queue[i]._fomarttedName);
             this._queue.push(Newroute);
@@ -95,61 +102,126 @@ class allBookings {
         this._arrayTrip = [];
     }
     addTrip(trip) {
-        let data = getData(ALL_BOOKING_KEY);
-        if (data != null) this.fromData(data);
         this._arrayTrip.push(trip);
-        updateStorage(ALL_BOOKING_KEY, this);
         // localStorage.removeItem(BOOKING_DATA_KEY);
     }
-    fromData(allBookings) {
-        for (let i = 0; i < allBookings._arrayTrip.length; i++) {
-            let oneBooking = new trip();
-            let data = getData(BOOKING_DATA_KEY);
-            oneBooking.fromData(data);
-            this._arrayTrip.push(oneBooking);
+    fromData(allBooking)
+    {
+        for (let i = 0; i < allBooking._arrayTrip.length; i++)
+        {
+            this._arrayTrip.push(allBooking._arrayTrip[i]);
         }
     }
 }
+
+function reverse(s){
+    return s.split("").reverse().join("");
+}
+function compare(s1,s2)
+{
+    // s1: todayDate
+    // s2: datetrip
+    // return true when s1 <= s2
+    let tmp = 0;
+    let day1 ="";
+    let day2 ="";
+    let month1 ="";
+    let month2 ="";
+    let year1 ="";
+    let year2 ="";
+    for (let j = 0; j < s1.length; j++)
+    {
+        if (s1[j] == "/") 
+        {
+            tmp++;
+            continue;
+        }
+        if (tmp == 0) day1+= s1[j];
+        if (tmp == 1) month1+= s1[j];
+        if (tmp == 2) year1+= s1[j]; 
+    }
+    tmp = 0;
+    for (let j = 0; j < s2.length; j++)
+    {
+        if (s2[j] == "-") 
+        {
+            tmp++;
+            continue;
+        }
+        if (tmp == 0) year2+= s2[j];
+        if (tmp == 1) month2+= s2[j];
+        if (tmp == 2) day2+= s2[j];
+    }
+    day1 = parseInt(day1);
+    day2 = parseInt(day2);
+    month1 = parseInt(month1);
+    month2 = parseInt(month2);
+    year1 = parseInt(year1);
+    year2 = parseInt(year2);
+    if (year1 > year2) return false;
+    if (year1 < year2) return true;
+    if (month1 > month2) return false;
+    if (month1 < month2) return true;
+    if (day1 < day2) return true;
+    return false;
+}
 function sortBooking() 
 {
+    //     </table>
+    let displayGrid = `
+                        <h4>Booking History </h4>
+                        <table>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>final Destination</th>
+                            <th>Number of stops</th>
+                            <th>Distance (km)</th>
+                            <th>fare ($)</th>
+                        </tr> `;
     let todayDate = new Date().toLocaleDateString();
-    //let output = new allBookings();
     let output = getData(ALL_BOOKING_KEY);
-    //if (data != null) output.fromData(data);
+    
     let outputSchedule = "";
     let outputpast = "";
+    let cnt1 = 0;
+    let cnt2 = 0;
     for (let i = 0; i < output._arrayTrip.length; i++)
     {
-        outputSchedule+= "";
-        outputpast+="";
-        //         <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
         let sizeTrip = output._arrayTrip[i]._queue.length - 1;
-        if (todayDate <= output._arrayTrip[i]._date) 
+        if (compare(todayDate,output._arrayTrip[i]._date) == true) 
             {
+                cnt1++;
+                outputSchedule += "<tr>";
+                outputSchedule +="<td> <strong>Current Booking </strong></td>";
                 outputSchedule +=
                     `
-                    <h8><b>${output._arrayTrip[i]._date}</b>;
-                    ${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName};
-                    <b>${output._arrayTrip[i]._queue.length}</b>;
-                    ${output._arrayTrip[i]._distance};
-                    <b>$${output._arrayTrip[i]._fare}</b>
+                    <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue.length}</td>
+                    <td>${output._arrayTrip[i]._distance}</td>
+                    <td>$${output._arrayTrip[i]._fare}</td>
                 `
+                outputSchedule+= "</tr>";
             } else {
+                cnt2++;
+                outputpast += "<tr>";
+                outputpast +="<td> Past Booking </td>";
                 outputpast +=
                     `
-                    <h8><b>${output._arrayTrip[i]._date}</b>;
-                    ${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName};
-                    <b>${output._arrayTrip[i]._queue.length}</b>;
-                    ${output._arrayTrip[i]._distance};
-                    <b>$${output._arrayTrip[i]._fare}</b>
+                    <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
+                    <td>${output._arrayTrip[i]._queue.length}</td>
+                    <td>${output._arrayTrip[i]._distance}</td>
+                    <td>${output._arrayTrip[i]._fare}</td>
                     `
+                outputpast+= "</tr>";
             }
-        outputSchedule+= "</h8>";
-        outputpast+="</h8>";
     }
-    //console.log(outputSchedule);
-    if (outputSchedule != "")document.getElementById("scheduledBooking").innerHTML = outputSchedule;
-    if (outputpast != "")document.getElementById("pastBooking").innerHTML = outputpast;
+    if (cnt1 != 0) displayGrid += outputSchedule;
+    if (cnt2 != 0) displayGrid += outputpast;
+    displayGrid += `</table>`;
+    document.getElementById("scheduledBooking").innerHTML = displayGrid;
 }
 
 function checkDataLocal(key) {
@@ -195,7 +267,7 @@ function displayCurrent(data) {
     let Newtrip = new trip();
     let data1 = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data1);
-    output += `<p> Time: ${Newtrip.time} <br> Date: ${Newtrip.date} <br> Taxi type: ${Newtrip.taxi} </p> `;
+    output += `<p> Time: ${Newtrip.time} <br> Date: ${Newtrip.date}</p> `;
     output += `<ul class="mdl-list"> `;
     for (let i = 0; i < data.length; i++) {
         output +=
@@ -214,7 +286,7 @@ function home() {
 }
 function confirmTrip()
 {
-    if (window.confirm("Do you want to make this booking ?") === true) 
+    if (getData(BOOKING_DATA_KEY) != null)
     {
         let allBook = new allBookings();
         let data = getData(ALL_BOOKING_KEY);
@@ -228,7 +300,7 @@ function confirmTrip()
     }
     else
     {
-        location.reload();
+        window.alert("Can NOT make a book!");
     }
 }
 
@@ -244,5 +316,5 @@ function showView()
     document.getElementById("numStops").innerHTML = `${Newtrip._queue.length}`;
     document.getElementById("totalDist").innerHTML = `${Newtrip._distance}`;
     document.getElementById("fare").innerHTML = `${Newtrip._fare}`;
-    document.getElementById("taxiType").innerHTML = `${Newtrip.date}`;
+    document.getElementById("taxiType").innerHTML = `${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})`;
 }
