@@ -105,6 +105,9 @@ class allBookings {
         this._arrayTrip.push(trip);
         // localStorage.removeItem(BOOKING_DATA_KEY);
     }
+    removeTrip(Index) {
+        this._arrayTrip.splice(Index, 1);
+    }
     fromData(allBooking)
     {
         for (let i = 0; i < allBooking._arrayTrip.length; i++)
@@ -169,15 +172,17 @@ function sortBooking()
 {
     //     </table>
     let displayGrid = `
-                        <h4>Booking History </h4>
+                        <h4> <strong> Booking History </strong> </h4>
                         <table>
                         <tr>
-                            <th></th>
+                            <th>Status</th>
                             <th>Date</th>
-                            <th>final Destination</th>
-                            <th>Number of stops</th>
+                            <th>Pick up place</th>
+                            <th>Final destination</th>
+                            <th>Stops</th>
                             <th>Distance (km)</th>
-                            <th>fare ($)</th>
+                            <th>Fare ($)</th>
+                            <th>Transport</th>
                         </tr> `;
     let todayDate = new Date().toLocaleDateString();
     let output = getData(ALL_BOOKING_KEY);
@@ -197,10 +202,12 @@ function sortBooking()
                 outputSchedule +=
                     `
                     <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue.length}</td>
-                    <td>${output._arrayTrip[i]._distance}</td>
-                    <td>$${output._arrayTrip[i]._fare}</td>
+                    <td>${output._arrayTrip[i]._distance.toFixed(2)}</td>
+                    <td>${output._arrayTrip[i]._fare.toFixed(2)}</td>
+                    <td>${output._arrayTrip[i]._taxi.toUpperCase()} (${output._arrayTrip[i]._taxiCode})</td>
                 `
                 outputSchedule+= "</tr>";
             } else {
@@ -210,10 +217,12 @@ function sortBooking()
                 outputpast +=
                     `
                     <td>${output._arrayTrip[i]._date}</td>
+                    <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue.length}</td>
-                    <td>${output._arrayTrip[i]._distance}</td>
-                    <td>${output._arrayTrip[i]._fare}</td>
+                    <td>${output._arrayTrip[i]._distance.toFixed(2)}</td>
+                    <td>${output._arrayTrip[i]._fare.toFixed(2)}</td>
+                    <td>${output._arrayTrip[i]._taxi.toUpperCase()} (${output._arrayTrip[i]._taxiCode})</td>
                     `
                 outputpast+= "</tr>";
             }
@@ -314,7 +323,20 @@ function showView()
     document.getElementById("pickup").innerHTML = `${Newtrip._queue[0]._fomarttedName}`;
     document.getElementById("finalDest").innerHTML = `${Newtrip._queue[sizeTrip]._fomarttedName}`;
     document.getElementById("numStops").innerHTML = `${Newtrip._queue.length}`;
-    document.getElementById("totalDist").innerHTML = `${Newtrip._distance}`;
-    document.getElementById("fare").innerHTML = `${Newtrip._fare}`;
+    document.getElementById("totalDist").innerHTML = `${Newtrip._distance.toFixed(2)}`;
+    document.getElementById("fare").innerHTML = `${Newtrip._fare.toFixed(2)}`;
     document.getElementById("taxiType").innerHTML = `${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})`;
+}
+function deleteView()
+{
+     if (window.confirm("Do you want to delete this booking ?") === true)
+     {
+        localStorage.removeItem(BOOKING_DATA_KEY);
+        let data = getData(ALL_BOOKING_KEY);
+        let allBook = new allBookings();
+        if (data != null) allBook.fromData(data);
+        allBook.removeTrip(allBook._arrayTrip.length-1);
+        updateStorage(ALL_BOOKING_KEY,allBook);
+        window.location.href = "index.html";
+     }
 }

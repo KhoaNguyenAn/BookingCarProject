@@ -32,7 +32,17 @@ function addNewDestination()
         return;
     }
     //if all inputs are valid, add student to queue
-    getDestination();
+    let check = checkTaxi(Newtaxi);
+    if (check != false) 
+    {
+            updateStorage("taxicode",check);
+            getDestination();  
+    }
+    else
+    {
+        window.alert("there is NO available taxi for your booking, please try again! ");
+        return;
+    }
  }
  function addNewDestination2(lat ,lng)
 {
@@ -63,7 +73,6 @@ function addNewDestination()
     let check = checkTaxi(Newtaxi);
     if (check != false) 
     {
-            updateStorage("taxicode",check);
             getInformation(lat,lng);   // DO IT AGAIN WITH THE FUNCTION ABOVE
     }
     else
@@ -77,8 +86,11 @@ function addNewDestination()
  {
       for (let i = 0; i < taxiList.length; i++)
       {
-          if (taxiList[i].type == taxi && taxiList[i].available == true)
+          let taxiCodeOld = getData("taxicode");
+          if (taxiList[i].type == taxi && (taxiList[i].available == true || taxiList[i].rego == taxiCodeOld))
           {
+              updateStorage("taxicode",taxiList[i].rego);
+              taxiList[i].available = false;
               return taxiList[i].rego;
           }
       }

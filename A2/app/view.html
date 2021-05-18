@@ -47,7 +47,7 @@
                       <h6><b>Fare ($): </b><span id="fare"></span> </h6>
                       <h6><b>Vehicle type: </b><span id="taxiType"></span> </h6>
                       
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="deleteView()">
                             Delete booking
                           </button>
                       
@@ -67,7 +67,9 @@
           </div>
           
           <script src="js/shared.js"></script>
-          <script src="js/map.js"></script>
+          <script src="js/GeoCoding.js"></script>
+          <script src="js/services.js"></script>
+          <script src="js/map2.js"></script>
           <script>
             showView();
         </script>  

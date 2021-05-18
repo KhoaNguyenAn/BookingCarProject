@@ -10,12 +10,7 @@ let map = new mapboxgl.Map({
 let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
-map.on('click', (e) => {
-    if (window.confirm("Do you want to choose this destination ?") === true) 
-    {
-    addNewDestination2(e.lngLat.lat,e.lngLat.lng);
-    }
-})
+
 function showPath() {
     let object = {
         type: "geojson",
@@ -39,11 +34,11 @@ function showPath() {
         let Newroute1 = Newtrip._queue[i];
         object.data.geometry.coordinates.push([Newroute1._end.longitude,Newroute1._end.latitude]);
     }
-    if (map.getLayer('routes'))
-    {
-       map.removeLayer('routes');
-       map.removeSource('data');
-    }
+    // if (map.getLayer('routes'))
+    // {
+    //    map.removeLayer('routes');
+    //    map.removeSource('data');
+    // }
     map.addSource('data', object);
     map.addLayer({
         id: "routes",
@@ -54,31 +49,11 @@ function showPath() {
     });
 }
 
-function liveClock() 
-{
-    let Clock = new Date().toLocaleTimeString();
-    document.getElementById("currentTime").innerHTML = Clock;
-}
-
 // fly to my location 
 window.onload = function()
 {
-    setInterval(liveClock, 1000);
-    let lastDestination = null;
-    //localStorage.removeItem(ALL_BOOKING_KEY);
-    if (lastDestination == null)
-    {
-      localStorage.removeItem(BOOKING_DATA_KEY);
-      navigator.geolocation.getCurrentPosition(success);
-    }
-
-    let Newtrip = new trip();
-    if (checkDataLocal(BOOKING_DATA_KEY) == true) 
-    {
-        let data = getData(BOOKING_DATA_KEY);
-        Newtrip.fromData(data);
-        displayCurrent(Newtrip._queue);
-    }
+    navigator.geolocation.getCurrentPosition(success);
+    showPath();
 }
 let FLAG = 0;
 function success(pos) {
@@ -100,8 +75,4 @@ function success(pos) {
     popup.addTo(map);
     getInformation(lat,lng);
     //
-}
-function deleteLast()
-{
-    
 }
