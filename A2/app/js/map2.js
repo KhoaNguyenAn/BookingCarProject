@@ -3,7 +3,7 @@ let map = new mapboxgl.Map({
     container: 'map',
     center: [144.9648731, -37.8182711],
     //center: [106.68612163283439, 10.841443617030293],
-    zoom: 16,
+    zoom: 15,
     style: 'mapbox://styles/mapbox/streets-v9'
 });
 
@@ -47,15 +47,28 @@ function showPath() {
         layout: { "line-join": "round", "line-cap": "round" },
         paint: { "line-color": "#888", "line-width": 8 }
     });
+    
+    // BASDFASDASD
+    let lat = Newtrip._queue[Newtrip._queue.length-1]._end.latitude;
+    let lng = Newtrip._queue[Newtrip._queue.length-1]._end.longitude;
+
+    let marker = new mapboxgl.Marker();
+    marker.setLngLat([lng, lat]);
+    let popup = new mapboxgl.Popup({ offset: 45 });
+    popup.setHTML(`<strong>Final Destination: </strong>${lat}<br> ${lng} <br> ${Newtrip._queue[Newtrip._queue.length-1]._fomarttedName}`);
+    marker.setPopup(popup);
+    marker.addTo(map);
+    popup.addTo(map);
+    panTo(lat, lng);
 }
 
 // fly to my location 
 window.onload = function()
 {
     navigator.geolocation.getCurrentPosition(success);
-    showPath();
 }
 let FLAG = 0;
+let lastDestination = null;
 function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
@@ -73,6 +86,5 @@ function success(pos) {
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    getInformation(lat,lng);
-    //
+    showPath();
 }
