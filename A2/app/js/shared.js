@@ -276,11 +276,12 @@ function displayCurrent(data) {
     let Newtrip = new trip();
     let data1 = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data1);
+    output += `<p4> <strong> List of destinations </strong> </p4>`;
     output += `<p> Time: ${Newtrip.time} <br> Date: ${Newtrip.date}</p> `;
     output += `<ul class="mdl-list"> `;
     for (let i = 0; i < data.length; i++) {
         output +=
-            `<li class="mdl-list__item mdl-list__item--three-line">
+            `<li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span>${i + 1}:${data[i]._fomarttedName}</span>
             </span>
