@@ -409,6 +409,7 @@ function changeTaxi()
               data1._arrayTrip[data1._arrayTrip.length-1]._taxiCode = taxiList[i].rego;
               updateStorage(ALL_BOOKING_KEY,data1);
               window.alert("Successful change !");
+              showView();
               return;
           }
       }
