@@ -8,6 +8,10 @@ const FLAGRATE = 4.20;
 const COMMERCIALLEVY = 1.10;
 let tempCost;
 let distanceCost;
+/*
+ *@name calculate
+ *@desc It is responsible for calculating the fare
+*/
 function calculate()
 {
     let finalCost = 0;

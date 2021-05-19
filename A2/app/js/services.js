@@ -1,3 +1,9 @@
+"use strict"
+/*
+ *@name webServiceRequest
+ *@desc It is responsible for creating the appropriate link to be used by the API using the parameter
+ *@param url, data
+*/
 function webServiceRequest(url,data)
 {
 	// Build URL parameters from data object.

@@ -116,10 +116,11 @@ class allBookings {
         }
     }
 }
-
-function reverse(s){
-    return s.split("").reverse().join("");
-}
+/*
+ *@name compare
+ *@desc It is responsible for comparing if the date is greater or smaller
+ *@param s1, s2 - todayDate, dateTrip
+*/
 function compare(s1,s2)
 {
     // s1: todayDate
@@ -168,6 +169,10 @@ function compare(s1,s2)
     if (day1 < day2) return true;
     return false;
 }
+/*
+ *@name sortBooking
+ *@desc It is responsible for displaying the booking in the correct section (past or scheduled)
+*/
 function sortBooking() 
 {
     //     </table>
@@ -232,7 +237,12 @@ function sortBooking()
     displayGrid += `</table>`;
     document.getElementById("scheduledBooking").innerHTML = displayGrid;
 }
-
+/*
+    * @name checkDataLocal
+    * @desc - check if data exists in localStorage
+    * @param 'key' - the key used to store data in local storage
+    * @return boolean - return true if there is data, and false if there is no data
+*/
 function checkDataLocal(key) {
     if (typeof (Storage) !== "undefined") {
         if (localStorage.getItem(key) !== null) {
@@ -247,10 +257,22 @@ function checkDataLocal(key) {
         return false;
     }
 }
+/*
+    * @name updateStorage
+    * @desc - update data into localStorage
+    * @param 'key' - the key used to store data in local storage
+    * @param 'data' - data to be stored in local storage
+*/
 function updateStorage(key, data) {
     let JSONdata = JSON.stringify(data);
     localStorage.setItem(key, JSONdata);
 }
+/*
+    * @name getData
+    * @desc - to retrieve / get data from localStorage
+    * @param 'key' - the key used to store data in local storage
+    * @return data - return the data which has been fetched from local storage
+*/
 function getData(key) {
     let data = localStorage.getItem(key);
     try {
@@ -264,13 +286,20 @@ function getData(key) {
         return data;
     }
 }
-
+/*
+ *@name deleteBooking
+ *@desc It is responsible for deleting a booking
+*/
 function deleteBooking() {
     if (window.confirm("Do you want to delete this booking ?") === true) {
         location.reload();
     }
 }
-
+/*
+ *@name displayCurrent
+ *@desc It is responsible for displaying the booking
+ *@param data- data that the user had input
+*/
 function displayCurrent(data) {
     let output = "";
     let Newtrip = new trip();
@@ -290,10 +319,17 @@ function displayCurrent(data) {
     output += `</ul>`;
     document.getElementById("queueContent").innerHTML = output;
 }
-
+/*
+ *@name home
+ *@desc It is responsible for redirecting the user to the home page
+*/
 function home() {
     window.location.href = "index.html";
 }
+/*
+ *@name confirmTrip
+ *@desc It is responsible for confirming if the user wants to book the trip
+*/
 function confirmTrip()
 {
     if (getData(BOOKING_DATA_KEY) != null)
@@ -313,7 +349,10 @@ function confirmTrip()
         window.alert("Can NOT make a book!");
     }
 }
-
+/*
+ *@name showView
+ *@desc It is responsible for displaying the booking data
+*/
 function showView()
 {
     let Newtrip = new trip();
@@ -328,6 +367,10 @@ function showView()
     document.getElementById("fare").innerHTML = `${Newtrip._fare.toFixed(2)}`;
     document.getElementById("taxiType").innerHTML = `${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})`;
 }
+/*
+ *@name deleteView
+ *@desc It is responsible for deleting the booking from the view page
+*/
 function deleteView()
 {
      if (window.confirm("Do you want to delete this booking ?") === true)
@@ -341,7 +384,10 @@ function deleteView()
         window.location.href = "index.html";
      }
 }
-
+/*
+ *@name changeTaxi
+ *@desc It is responsible for changing a taxi
+*/
 function changeTaxi()
 {
     let Newtrip = new trip()

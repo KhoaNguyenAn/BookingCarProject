@@ -1,8 +1,8 @@
+"use strict"
 mapboxgl.accessToken = "pk.eyJ1IjoidGVubmlzb24iLCJhIjoiY2tvcGs1d29tMGRjNzJwa2hzMTg4c3ZoNCJ9.8fGmMA313cd-nAdSZkLnqg";
 let map = new mapboxgl.Map({
     container: 'map',
     center: [144.9648731, -37.8182711],
-    //center: [106.68612163283439, 10.841443617030293],
     zoom: 15,
     style: 'mapbox://styles/mapbox/streets-v9'
 });
@@ -10,7 +10,10 @@ let map = new mapboxgl.Map({
 let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
-
+/*
+ *@name showPath
+ *@desc It is responsible for showing the path between the user's stops
+*/
 function showPath() {
 
     let object = {
@@ -87,6 +90,11 @@ window.onload = function () {
 }
 let FLAG = 0;
 let lastDestination = null;
+/*
+ *@name success
+ *@desc It takes the position and separates it into lat and lgn and call the showPath function
+ *@param pos
+*/
 function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;

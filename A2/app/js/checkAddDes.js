@@ -1,4 +1,8 @@
 "use strict"
+/*
+ *@name addNewDestination
+ *@desc It is responsible for adding a new booking
+*/
 function addNewDestination()
 {
     //get input values
@@ -44,6 +48,11 @@ function addNewDestination()
         return;
     }
  }
+ /*
+ *@name addNewDestination2
+ *@param lat, lgn
+ *@desc It is responsible for adding a new booking
+*/
  function addNewDestination2(lat ,lng)
 {
     //get input values
@@ -67,7 +76,7 @@ function addNewDestination()
         window.alert("Please choose your Taxi type !");
         return;
     }
-    //if all inputs are valid, add student to queue
+    //if all inputs are valid, add destination to queue
     //getInformation(lat,lng);
   
     let check = checkTaxi(Newtaxi);
@@ -82,7 +91,11 @@ function addNewDestination()
         return;
     }
  }
-
+/*
+ *@name checkTaxi
+ *@desc It is responsible for checking if the taxi is available
+ *@param taxi
+*/
  function checkTaxi(taxi)
  {
       for (let i = 0; i < taxiList.length; i++)

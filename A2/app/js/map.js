@@ -1,8 +1,8 @@
+"use strict"
 mapboxgl.accessToken = "pk.eyJ1IjoidGVubmlzb24iLCJhIjoiY2tvcGs1d29tMGRjNzJwa2hzMTg4c3ZoNCJ9.8fGmMA313cd-nAdSZkLnqg";
 let map = new mapboxgl.Map({
     container: 'map',
     center: [144.9648731, -37.8182711],
-    //center: [106.68612163283439, 10.841443617030293],
     zoom: 16,
     style: 'mapbox://styles/mapbox/streets-v9'
 });
@@ -16,6 +16,10 @@ map.on('click', (e) => {
     addNewDestination2(e.lngLat.lat,e.lngLat.lng);
     }
 })
+/*
+ *@name showPath
+ *@desc It is responsible for showing the path between the user's stops
+*/
 function showPath() {
     let object = {
         type: "geojson",
@@ -53,7 +57,10 @@ function showPath() {
         paint: { "line-color": "#888", "line-width": 8 }
     });
 }
-
+/*
+    *@name liveClock
+    *@desc show a live clock on the page
+*/
 function liveClock() 
 {
     let Clock = new Date().toLocaleTimeString();
@@ -81,6 +88,12 @@ window.onload = function()
     }
 }
 let FLAG = 0;
+/*
+ *@name success
+ *@desc It takes the position and separates it into lat and lgn and call the showPath function
+ *@param pos
+*/
+let lastDestination= null;
 function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
@@ -101,6 +114,10 @@ function success(pos) {
     getInformation(lat,lng);
     //
 }
+/*
+ *@name deleteLast
+ *@desc It is responsible for deleting the last stops entered by the user and updating the map
+*/
 function deleteLast()
 {
     let Newtrip = new trip();

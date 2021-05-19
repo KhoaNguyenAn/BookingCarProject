@@ -1,4 +1,8 @@
 "use strict"
+/*
+ *@name getDestination
+ *@desc It is responsible getting the location that the user inputs
+*/
 function getDestination() 
 {
     let apiKey = "59e6e73ac63645e19d599650bfda46ae";
@@ -12,6 +16,11 @@ function getDestination()
     };
     webServiceRequest(url, data);
 }
+/*
+ *@name getInformation
+ *@desc It get the lat and lgn and call the webServiceRequest to assign it to the url
+ *@param lat,lng- the latitude and longitude
+*/
 function getInformation(lat,lng)
 {
     let apiKey = "59e6e73ac63645e19d599650bfda46ae";
@@ -25,6 +34,11 @@ function getInformation(lat,lng)
     };
     webServiceRequest(url, data);
 }
+/*
+ *@name add
+ *@desc It is responsible for adding the data to the map
+ *@param data
+*/
 function add(data)
 {
     let lat = data.results[0].geometry.lat;
