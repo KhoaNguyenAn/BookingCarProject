@@ -12,6 +12,7 @@ let panTo = (lat, lng) => {
 }
 
 function showPath() {
+
     let object = {
         type: "geojson",
         data: {
@@ -27,18 +28,37 @@ function showPath() {
     let data = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data);
     let Newroute = Newtrip._queue[0];
-    object.data.geometry.coordinates.push([Newroute._start.longitude,Newroute._start.latitude]);
-    object.data.geometry.coordinates.push([Newroute._end.longitude,Newroute._end.latitude]);
-    for (let i = 1; i < Newtrip._queue.length; i++) 
-    {
-        let Newroute1 = Newtrip._queue[i];
-        object.data.geometry.coordinates.push([Newroute1._end.longitude,Newroute1._end.latitude]);
+    object.data.geometry.coordinates.push([Newroute._start.longitude, Newroute._start.latitude]);
+    object.data.geometry.coordinates.push([Newroute._end.longitude, Newroute._end.latitude]);
+    //
+    if (true) {
+        let marker = new mapboxgl.Marker({ color: '#ea1a1a' });
+        marker.setLngLat([Newroute._start.longitude, Newroute._start.latitude]);
+        let popup = new mapboxgl.Popup({ offset: 45 });
+        popup.setHTML(`<strong> Pick up place </strong>`);
+        marker.setPopup(popup);
+        marker.addTo(map);
+        popup.addTo(map);
     }
-    // if (map.getLayer('routes'))
-    // {
-    //    map.removeLayer('routes');
-    //    map.removeSource('data');
-    // }
+    ///
+    let lat = null;
+    let lng = null;
+    for (let i = 1; i < Newtrip._queue.length; i++) {
+        let Newroute1 = Newtrip._queue[i];
+        object.data.geometry.coordinates.push([Newroute1._end.longitude, Newroute1._end.latitude]);
+        if (i == Newtrip._queue.length - 1) break;
+        let lat = Newtrip._queue[i]._end.latitude;
+        let lng = Newtrip._queue[i]._end.longitude;
+        let marker = new mapboxgl.Marker();
+        marker.setLngLat([lng, lat]);
+        let popup = new mapboxgl.Popup({ offset: 45 });
+        popup.setHTML(`Stop`);
+        marker.setPopup(popup);
+        marker.addTo(map);
+        popup.addTo(map);
+
+    }
+
     map.addSource('data', object);
     map.addLayer({
         id: "routes",
@@ -47,15 +67,14 @@ function showPath() {
         layout: { "line-join": "round", "line-cap": "round" },
         paint: { "line-color": "#888", "line-width": 8 }
     });
-    
-    // BASDFASDASD
-    let lat = Newtrip._queue[Newtrip._queue.length-1]._end.latitude;
-    let lng = Newtrip._queue[Newtrip._queue.length-1]._end.longitude;
 
+    // finaldes
+    lat = Newtrip._queue[Newtrip._queue.length - 1]._end.latitude;
+    lng = Newtrip._queue[Newtrip._queue.length - 1]._end.longitude;
     let marker = new mapboxgl.Marker();
     marker.setLngLat([lng, lat]);
     let popup = new mapboxgl.Popup({ offset: 45 });
-    popup.setHTML(`<strong>Final Destination: </strong>${lat}<br> ${lng} <br> ${Newtrip._queue[Newtrip._queue.length-1]._fomarttedName}`);
+    popup.setHTML(`<strong>Final Destination: </strong><br>${lat}<br> ${lng} <br> ${Newtrip._queue[Newtrip._queue.length - 1]._fomarttedName}`);
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
@@ -63,8 +82,7 @@ function showPath() {
 }
 
 // fly to my location 
-window.onload = function()
-{
+window.onload = function () {
     navigator.geolocation.getCurrentPosition(success);
 }
 let FLAG = 0;
@@ -73,18 +91,11 @@ function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
     lastDestination = {
-        latitude: lat, 
+        latitude: lat,
         longitude: lng
     };
     map.flyTo({
         center: [lng, lat]
     });
-    let marker = new mapboxgl.Marker({ color: '#ea1a1a' });
-    marker.setLngLat([pos.coords.longitude, pos.coords.latitude]);
-    let popup = new mapboxgl.Popup({ offset: 45 });
-    popup.setHTML(`<strong> My location </strong>`);
-    marker.setPopup(popup);
-    marker.addTo(map);
-    popup.addTo(map);
     showPath();
 }
