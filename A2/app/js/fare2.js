@@ -49,16 +49,4 @@ function calculate()
     }
     Newtrip._fare = finalCost;
     updateStorage(BOOKING_DATA_KEY,Newtrip);
-    //Display
-    document.getElementById("fare").innerHTML = ` ${finalCost.toFixed(2)} `;
-    document.getElementById("vehicle").innerHTML = ` ${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})`;
-    document.getElementById("totalDist").innerHTML = ` ${distanceTravelled.toFixed(2)} `;
 }
-
-
-
-
-
-
-
-

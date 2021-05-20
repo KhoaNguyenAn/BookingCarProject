@@ -292,6 +292,7 @@ function getData(key) {
 */
 function deleteBooking() {
     if (window.confirm("Do you want to delete this booking ?") === true) {
+        localStorage.removeItem(BOOKING_DATA_KEY);
         location.reload();
     }
 }
@@ -409,6 +410,7 @@ function changeTaxi()
               data1._arrayTrip[data1._arrayTrip.length-1]._taxiCode = taxiList[i].rego;
               updateStorage(ALL_BOOKING_KEY,data1);
               window.alert("Successful change !");
+              calculate();
               showView();
               return;
           }
