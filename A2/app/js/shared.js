@@ -1,3 +1,10 @@
+/** 
+@NAME : Team 081
+@LASTMODIFIED : 20.5.2021
+@ASSIGNMENT 2
+@Filename : shared.js
+@description: This file is used to implement everything that will be used by all the three html pages and the other js pages
+*/
 "use strict"
 // keys for local storage
 const BOOKING_DATA_KEY = "bookingData";
@@ -53,12 +60,10 @@ class trip {
     get date() {
         return this._date;
     }
-    get fare()
-    {
+    get fare() {
         return this._fare;
     }
-    get taxiCode()
-    {
+    get taxiCode() {
         return this._taxiCode;
     }
     addRoute(route) {
@@ -89,7 +94,7 @@ class trip {
         this._date = trip._date;
         this._fare = trip._fare;
         this._taxiCode = trip._taxiCode;
-        //this._taxiCode = trip._taxiCode;
+        
         for (let i = 0; i < trip._queue.length; i++) {
             let Newroute = new route(trip._queue[i]._start, trip._queue[i]._end, trip._queue[i]._fomarttedName);
             this._queue.push(Newroute);
@@ -103,58 +108,51 @@ class allBookings {
     }
     addTrip(trip) {
         this._arrayTrip.push(trip);
-        // localStorage.removeItem(BOOKING_DATA_KEY);
+        
     }
     removeTrip(Index) {
         this._arrayTrip.splice(Index, 1);
     }
-    fromData(allBooking)
-    {
-        for (let i = 0; i < allBooking._arrayTrip.length; i++)
-        {
+    fromData(allBooking) {
+        for (let i = 0; i < allBooking._arrayTrip.length; i++) {
             this._arrayTrip.push(allBooking._arrayTrip[i]);
         }
     }
 }
 /*
  *@name compare
- *@desc It is responsible for comparing if the date is greater or smaller
+ *@desc It is responsible for comparing if the booking is from a past or scheduled date
  *@param s1, s2 - todayDate, dateTrip
 */
-function compare(s1,s2)
-{
+function compare(s1, s2) {
     // s1: todayDate
     // s2: datetrip
     // return true when s1 <= s2
     let tmp = 0;
-    let day1 ="";
-    let day2 ="";
-    let month1 ="";
-    let month2 ="";
-    let year1 ="";
-    let year2 ="";
-    for (let j = 0; j < s1.length; j++)
-    {
-        if (s1[j] == "/") 
-        {
+    let day1 = "";
+    let day2 = "";
+    let month1 = "";
+    let month2 = "";
+    let year1 = "";
+    let year2 = "";
+    for (let j = 0; j < s1.length; j++) {
+        if (s1[j] == "/") {
             tmp++;
             continue;
         }
-        if (tmp == 0) day1+= s1[j];
-        if (tmp == 1) month1+= s1[j];
-        if (tmp == 2) year1+= s1[j]; 
+        if (tmp == 0) day1 += s1[j];
+        if (tmp == 1) month1 += s1[j];
+        if (tmp == 2) year1 += s1[j];
     }
     tmp = 0;
-    for (let j = 0; j < s2.length; j++)
-    {
-        if (s2[j] == "-") 
-        {
+    for (let j = 0; j < s2.length; j++) {
+        if (s2[j] == "-") {
             tmp++;
             continue;
         }
-        if (tmp == 0) year2+= s2[j];
-        if (tmp == 1) month2+= s2[j];
-        if (tmp == 2) day2+= s2[j];
+        if (tmp == 0) year2 += s2[j];
+        if (tmp == 1) month2 += s2[j];
+        if (tmp == 2) day2 += s2[j];
     }
     day1 = parseInt(day1);
     day2 = parseInt(day2);
@@ -171,11 +169,10 @@ function compare(s1,s2)
 }
 /*
  *@name sortBooking
- *@desc It is responsible for displaying the booking in the correct section (past or scheduled)
+ *@desc It is responsible for displaying all the booking in the correct section (past or scheduled) in the allBooking.html
 */
-function sortBooking() 
-{
-    //     </table>
+function sortBooking() {
+    
     let displayGrid = `
                         <h4> <strong> Booking History </strong> </h4>
                         <table>
@@ -191,21 +188,19 @@ function sortBooking()
                         </tr> `;
     let todayDate = new Date().toLocaleDateString();
     let output = getData(ALL_BOOKING_KEY);
-    
+
     let outputSchedule = "";
     let outputpast = "";
     let cnt1 = 0;
     let cnt2 = 0;
-    for (let i = 0; i < output._arrayTrip.length; i++)
-    {
+    for (let i = 0; i < output._arrayTrip.length; i++) {
         let sizeTrip = output._arrayTrip[i]._queue.length - 1;
-        if (compare(todayDate,output._arrayTrip[i]._date) == true) 
-            {
-                cnt1++;
-                outputSchedule += "<tr>";
-                outputSchedule +="<td> <strong>Current Booking </strong></td>";
-                outputSchedule +=
-                    `
+        if (compare(todayDate, output._arrayTrip[i]._date) == true) {
+            cnt1++;
+            outputSchedule += "<tr>";
+            outputSchedule += "<td> <strong>Current Booking </strong></td>";
+            outputSchedule +=
+                `
                     <td>${output._arrayTrip[i]._date}</td>
                     <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
@@ -214,13 +209,13 @@ function sortBooking()
                     <td>${output._arrayTrip[i]._fare.toFixed(2)}</td>
                     <td>${output._arrayTrip[i]._taxi.toUpperCase()} (${output._arrayTrip[i]._taxiCode})</td>
                 `
-                outputSchedule+= "</tr>";
-            } else {
-                cnt2++;
-                outputpast += "<tr>";
-                outputpast +="<td> Past Booking </td>";
-                outputpast +=
-                    `
+            outputSchedule += "</tr>";
+        } else {
+            cnt2++;
+            outputpast += "<tr>";
+            outputpast += "<td> Past Booking </td>";
+            outputpast +=
+                `
                     <td>${output._arrayTrip[i]._date}</td>
                     <td>${output._arrayTrip[i]._queue[0]._fomarttedName}</td>
                     <td>${output._arrayTrip[i]._queue[sizeTrip]._fomarttedName}</td>
@@ -229,8 +224,8 @@ function sortBooking()
                     <td>${output._arrayTrip[i]._fare.toFixed(2)}</td>
                     <td>${output._arrayTrip[i]._taxi.toUpperCase()} (${output._arrayTrip[i]._taxiCode})</td>
                     `
-                outputpast+= "</tr>";
-            }
+            outputpast += "</tr>";
+        }
     }
     if (cnt1 != 0) displayGrid += outputSchedule;
     if (cnt2 != 0) displayGrid += outputpast;
@@ -298,7 +293,7 @@ function deleteBooking() {
 }
 /*
  *@name displayCurrent
- *@desc It is responsible for displaying the booking
+ *@desc It is responsible for displaying all destinations and stops
  *@param data- data that the user had input
 */
 function displayCurrent(data) {
@@ -331,10 +326,8 @@ function home() {
  *@name confirmTrip
  *@desc It is responsible for confirming if the user wants to book the trip
 */
-function confirmTrip()
-{
-    if (getData(BOOKING_DATA_KEY) != null)
-    {
+function confirmTrip() {
+    if (getData(BOOKING_DATA_KEY) != null) {
         let allBook = new allBookings();
         let data = getData(ALL_BOOKING_KEY);
         if (data != null) allBook.fromData(data);
@@ -342,20 +335,18 @@ function confirmTrip()
         let data1 = getData(BOOKING_DATA_KEY);
         Newtrip.fromData(data1);
         allBook.addTrip(Newtrip);
-        updateStorage(ALL_BOOKING_KEY,allBook);
+        updateStorage(ALL_BOOKING_KEY, allBook);
         window.location.href = "view.html";
     }
-    else
-    {
+    else {
         window.alert("Can NOT make a book!");
     }
 }
 /*
  *@name showView
- *@desc It is responsible for displaying the booking data
+ *@desc It is responsible for displaying the booking data in the view.html file
 */
-function showView()
-{
+function showView() {
     let Newtrip = new trip();
     let data = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data);
@@ -372,49 +363,44 @@ function showView()
  *@name deleteView
  *@desc It is responsible for deleting the booking from the view page
 */
-function deleteView()
-{
-     if (window.confirm("Do you want to delete this booking ?") === true)
-     {
+function deleteView() {
+    if (window.confirm("Do you want to delete this booking ?") === true) {
         localStorage.removeItem(BOOKING_DATA_KEY);
         let data = getData(ALL_BOOKING_KEY);
         let allBook = new allBookings();
         if (data != null) allBook.fromData(data);
-        allBook.removeTrip(allBook._arrayTrip.length-1);
-        updateStorage(ALL_BOOKING_KEY,allBook);
+        allBook.removeTrip(allBook._arrayTrip.length - 1);
+        updateStorage(ALL_BOOKING_KEY, allBook);
         window.location.href = "index.html";
-     }
+    }
 }
 /*
  *@name changeTaxi
  *@desc It is responsible for changing a taxi
 */
-function changeTaxi()
-{
+function changeTaxi() {
     let Newtrip = new trip()
     let data = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data);
     let Newtaxi = document.getElementById("taxiType1").value;
-    for (let i = 0; i < taxiList.length; i++)
-      {
-          let taxiCodeOld = getData("taxicode");
-          if (taxiList[i].type == Newtaxi && (taxiList[i].available == true || taxiList[i].rego == taxiCodeOld))
-          {
-              Newtrip._taxi = Newtaxi;
-              Newtrip._taxiCode = taxiList[i].rego;
-              updateStorage(BOOKING_DATA_KEY,Newtrip);
-              updateStorage("taxicode",taxiList[i].rego);
-              taxiList[i].available = false;
-              let data1 = getData(ALL_BOOKING_KEY);
-              data1._arrayTrip[data1._arrayTrip.length-1]._taxi = Newtaxi;
-              data1._arrayTrip[data1._arrayTrip.length-1]._taxiCode = taxiList[i].rego;
-              updateStorage(ALL_BOOKING_KEY,data1);
-              window.alert("Successful change !");
-              calculate();
-              showView();
-              return;
-          }
-      }
-      window.alert("there is NO available taxi for your booking, please try again! ");
-      return;
+    for (let i = 0; i < taxiList.length; i++) {
+        let taxiCodeOld = getData("taxicode");
+        if (taxiList[i].type == Newtaxi && (taxiList[i].available == true || taxiList[i].rego == taxiCodeOld)) {
+            Newtrip._taxi = Newtaxi;
+            Newtrip._taxiCode = taxiList[i].rego;
+            updateStorage(BOOKING_DATA_KEY, Newtrip);
+            updateStorage("taxicode", taxiList[i].rego);
+            taxiList[i].available = false;
+            let data1 = getData(ALL_BOOKING_KEY);
+            data1._arrayTrip[data1._arrayTrip.length - 1]._taxi = Newtaxi;
+            data1._arrayTrip[data1._arrayTrip.length - 1]._taxiCode = taxiList[i].rego;
+            updateStorage(ALL_BOOKING_KEY, data1);
+            window.alert("Successful change !");
+            calculate();
+            showView();
+            return;
+        }
+    }
+    window.alert("there is NO available taxi for your booking, please try again! ");
+    return;
 }

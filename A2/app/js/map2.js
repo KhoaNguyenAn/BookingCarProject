@@ -1,3 +1,10 @@
+/** 
+@NAME : Team 081
+@LASTMODIFIED : 20.5.2021
+@ASSIGNMENT 2
+@Filename : map2.js
+@description: This file is used to display the functionality of the map in the view.html page
+*/
 "use strict"
 mapboxgl.accessToken = "pk.eyJ1IjoidGVubmlzb24iLCJhIjoiY2tvcGs1d29tMGRjNzJwa2hzMTg4c3ZoNCJ9.8fGmMA313cd-nAdSZkLnqg";
 let map = new mapboxgl.Map({

@@ -1,3 +1,10 @@
+/** 
+@NAME : Team 081
+@LASTMODIFIED : 20.5.2021
+@ASSIGNMENT 2
+@Filename : map.js
+@description: This file is used to display the functionality of the map in the index.html page
+*/
 "use strict"
 mapboxgl.accessToken = "pk.eyJ1IjoidGVubmlzb24iLCJhIjoiY2tvcGs1d29tMGRjNzJwa2hzMTg4c3ZoNCJ9.8fGmMA313cd-nAdSZkLnqg";
 let map = new mapboxgl.Map({
@@ -11,9 +18,8 @@ let panTo = (lat, lng) => {
     map.panTo([lng, lat]);
 }
 map.on('click', (e) => {
-    if (window.confirm("Do you want to choose this destination ?") === true) 
-    {
-    addNewDestination2(e.lngLat.lat,e.lngLat.lng);
+    if (window.confirm("Do you want to choose this destination ?") === true) {
+        addNewDestination2(e.lngLat.lat, e.lngLat.lng);
     }
 })
 /*
@@ -36,17 +42,15 @@ function showPath() {
     let data = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data);
     let Newroute = Newtrip._queue[0];
-    object.data.geometry.coordinates.push([Newroute._start.longitude,Newroute._start.latitude]);
-    object.data.geometry.coordinates.push([Newroute._end.longitude,Newroute._end.latitude]);
-    for (let i = 1; i < Newtrip._queue.length; i++) 
-    {
+    object.data.geometry.coordinates.push([Newroute._start.longitude, Newroute._start.latitude]);
+    object.data.geometry.coordinates.push([Newroute._end.longitude, Newroute._end.latitude]);
+    for (let i = 1; i < Newtrip._queue.length; i++) {
         let Newroute1 = Newtrip._queue[i];
-        object.data.geometry.coordinates.push([Newroute1._end.longitude,Newroute1._end.latitude]);
+        object.data.geometry.coordinates.push([Newroute1._end.longitude, Newroute1._end.latitude]);
     }
-    if (map.getLayer('routes'))
-    {
-       map.removeLayer('routes');
-       map.removeSource('data');
+    if (map.getLayer('routes')) {
+        map.removeLayer('routes');
+        map.removeSource('data');
     }
     map.addSource('data', object);
     map.addLayer({
@@ -61,27 +65,23 @@ function showPath() {
     *@name liveClock
     *@desc show a live clock on the page
 */
-function liveClock() 
-{
+function liveClock() {
     let Clock = new Date().toLocaleTimeString();
     document.getElementById("currentTime").innerHTML = Clock;
 }
 
 // fly to my location 
-window.onload = function()
-{
+window.onload = function () {
     setInterval(liveClock, 1000);
     let lastDestination = null;
-    //localStorage.removeItem(ALL_BOOKING_KEY);
-    if (lastDestination == null)
-    {
-      localStorage.removeItem(BOOKING_DATA_KEY);
-      navigator.geolocation.getCurrentPosition(success);
+
+    if (lastDestination == null) {
+        localStorage.removeItem(BOOKING_DATA_KEY);
+        navigator.geolocation.getCurrentPosition(success);
     }
 
     let Newtrip = new trip();
-    if (checkDataLocal(BOOKING_DATA_KEY) == true) 
-    {
+    if (checkDataLocal(BOOKING_DATA_KEY) == true) {
         let data = getData(BOOKING_DATA_KEY);
         Newtrip.fromData(data);
         displayCurrent(Newtrip._queue);
@@ -93,12 +93,12 @@ let FLAG = 0;
  *@desc It takes the position and separates it into lat and lgn and call the showPath function
  *@param pos
 */
-let lastDestination= null;
+let lastDestination = null;
 function success(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
     lastDestination = {
-        latitude: lat, 
+        latitude: lat,
         longitude: lng
     };
     map.flyTo({
@@ -111,22 +111,21 @@ function success(pos) {
     marker.setPopup(popup);
     marker.addTo(map);
     popup.addTo(map);
-    getInformation(lat,lng);
+    getInformation(lat, lng);
     //
 }
 /*
  *@name deleteLast
  *@desc It is responsible for deleting the last stops entered by the user and updating the map
 */
-function deleteLast()
-{
+function deleteLast() {
     let Newtrip = new trip();
     let data = getData(BOOKING_DATA_KEY);
     Newtrip.fromData(data);
-    Newtrip._distance-= Newtrip._queue[Newtrip._queue.length-1].getDistance();
-    Newtrip.removeDestination(Newtrip._queue.length-1);
-    lastDestination = Newtrip._queue[Newtrip._queue.length-1]._end;
-    updateStorage(BOOKING_DATA_KEY,Newtrip);
+    Newtrip._distance -= Newtrip._queue[Newtrip._queue.length - 1].getDistance();
+    Newtrip.removeDestination(Newtrip._queue.length - 1);
+    lastDestination = Newtrip._queue[Newtrip._queue.length - 1]._end;
+    updateStorage(BOOKING_DATA_KEY, Newtrip);
     showPath();
     displayCurrent(Newtrip._queue);
     calculate();

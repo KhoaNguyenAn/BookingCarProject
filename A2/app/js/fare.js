@@ -1,3 +1,11 @@
+/** 
+@NAME : Team 081
+@LASTMODIFIED : 20.5.2021
+@ASSIGNMENT 2
+@Filename : fare.js
+@description: This file is used to calculate the fare of the trip for the "INDEX.HTML" page
+*/
+
 "use strict"
 
 const SUVFARE = 3.50;
@@ -12,8 +20,7 @@ let distanceCost;
  *@name calculate
  *@desc It is responsible for calculating the fare
 */
-function calculate()
-{
+function calculate() {
     let finalCost = 0;
     let Newtrip = new trip();
     let data = getData(BOOKING_DATA_KEY);
@@ -36,19 +43,19 @@ function calculate()
     else if (vehicleSelected == "van") {
         tempCost = COMMERCIALLEVY + distanceCost + VANFARE;
     }
-    else{
+    else {
         tempCost = COMMERCIALLEVY + distanceCost + MINIBUSFARE;
     }
 
     // Night levy: 20% surcharge between 5pm and 9am
-    if (timeSelected >= "17:00" || timeSelected<="09:00" ) {
-        finalCost = tempCost *1.2;
+    if (timeSelected >= "17:00" || timeSelected <= "09:00") {
+        finalCost = tempCost * 1.2;
     }
-    else{
+    else {
         finalCost = tempCost;
     }
     Newtrip._fare = finalCost;
-    updateStorage(BOOKING_DATA_KEY,Newtrip);
+    updateStorage(BOOKING_DATA_KEY, Newtrip);
     //Display
     document.getElementById("fare").innerHTML = ` ${finalCost.toFixed(2)} `;
     document.getElementById("vehicle").innerHTML = ` ${Newtrip.taxi.toUpperCase()} (${Newtrip.taxiCode})`;
