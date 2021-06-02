@@ -33,7 +33,6 @@ function getInformation(lat, lng) {
     let latlng = `${lat}+${lng}`;
     let url = "https://api.opencagedata.com/geocode/v1/json";
     let data = {
-        countrycode: "au",
         q: latlng,
         key: apiKey,
         jsonp: "add",
