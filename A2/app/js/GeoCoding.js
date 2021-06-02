@@ -15,7 +15,6 @@ function getDestination() {
     let PLACENAME = document.getElementById("addDest").value;
     let url = "https://api.opencagedata.com/geocode/v1/json";
     let data = {
-        countrycode: "au",
         q: PLACENAME,
         key: apiKey,
         jsonp: "add",
